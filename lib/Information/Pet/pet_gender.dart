@@ -90,7 +90,10 @@ class _PetGenderState extends State<PetGender> {
                 alignment: Alignment.centerRight,
                 child: authElevatedButton(
                   context,
-                  () => Navigator.pushNamed(context, 'petProfilePhoto'),
+                  () {
+                    petUpdate('gender', gender[select]);
+                    Navigator.pushNamedAndRemoveUntil(context, 'petProfilePhoto', (route) => false);
+                  },
                 ),
               )
             ],

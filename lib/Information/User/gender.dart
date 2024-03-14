@@ -90,7 +90,11 @@ class _GenderState extends State<Gender> {
                 alignment: Alignment.centerRight,
                 child: authElevatedButton(
                   context,
-                  () => Navigator.pushNamed(context, 'profilePhoto'),
+                  () {
+                    update('gender', gender[select]);
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, 'profilePhoto', (route) => false);
+                  },
                 ),
               )
             ],

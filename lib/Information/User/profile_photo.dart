@@ -100,7 +100,10 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
                 child: authElevatedButton(
                   context,
                   (selected != null)
-                      ? () => Navigator.pushNamed(context, 'petInfo')
+                      ? () {
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, 'petInfo', (route) => false);
+                        }
                       : null,
                 ),
               )

@@ -84,7 +84,10 @@ class _PetDOBState extends State<PetDOB> {
                 alignment: Alignment.centerRight,
                 child: authElevatedButton(
                   context,
-                  length ? () => Navigator.pushNamed(context, 'petGender') : null,
+                  length ? () {
+                    petUpdate('dob', dob.text);
+                    Navigator.pushNamedAndRemoveUntil(context, 'petGender', (route) => false);
+                  } : null,
                 ),
               )
             ],

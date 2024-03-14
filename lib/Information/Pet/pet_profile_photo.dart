@@ -24,10 +24,9 @@ class _PetProfilePhotoState extends State<PetProfilePhoto> {
 
       final imagePath = File(image.path);
       setState(() {
-        if(id == 1) {
+        if (id == 1) {
           selected = imagePath;
-        }
-        else {
+        } else {
           selected2 = imagePath;
         }
       });
@@ -62,79 +61,79 @@ class _PetProfilePhotoState extends State<PetProfilePhoto> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       GestureDetector(
-                      onTap: () => pickImage(1),
-                      child: Container(
-                        height: 150,
-                        width: 150,
-                        padding: const EdgeInsets.all(50),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: green, width: 1),
-                          borderRadius: BorderRadius.circular(10),
-                          image: (selected != null)
-                              ? DecorationImage(
-                                  image: FileImage(selected!),
-                                  fit: BoxFit.cover)
-                              : null,
-                        ),
-                        child: (selected != null)
-                            ? null
-                            : Stack(
-                                alignment: Alignment.bottomRight,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 6, bottom: 6),
-                                    child: Image.asset(
-                                      "assets/pictures/image.png",
-                                      color: grey,
+                        onTap: () => pickImage(1),
+                        child: Container(
+                          height: 150,
+                          width: 150,
+                          padding: const EdgeInsets.all(50),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: green, width: 1),
+                            borderRadius: BorderRadius.circular(10),
+                            image: (selected != null)
+                                ? DecorationImage(
+                                    image: FileImage(selected!),
+                                    fit: BoxFit.cover)
+                                : null,
+                          ),
+                          child: (selected != null)
+                              ? null
+                              : Stack(
+                                  alignment: Alignment.bottomRight,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: 6, bottom: 6),
+                                      child: Image.asset(
+                                        "assets/pictures/image.png",
+                                        color: grey,
+                                      ),
                                     ),
-                                  ),
-                                  const CircleAvatar(
-                                    backgroundColor: green,
-                                    radius: 12,
-                                    child: Icon(Icons.add, color: white),
-                                  )
-                                ],
-                              ),
+                                    const CircleAvatar(
+                                      backgroundColor: green,
+                                      radius: 12,
+                                      child: Icon(Icons.add, color: white),
+                                    )
+                                  ],
+                                ),
+                        ),
                       ),
-                    ),
                       GestureDetector(
-                      onTap: () => pickImage(2),
-                      child: Container(
-                        height: 150,
-                        width: 150,
-                        padding: const EdgeInsets.all(50),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: green, width: 1),
-                          borderRadius: BorderRadius.circular(10),
-                          image: (selected2 != null)
-                              ? DecorationImage(
-                                  image: FileImage(selected2!),
-                                  fit: BoxFit.cover)
-                              : null,
-                        ),
-                        child: (selected2 != null)
-                            ? null
-                            : Stack(
-                                alignment: Alignment.bottomRight,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 6, bottom: 6),
-                                    child: Image.asset(
-                                      "assets/pictures/image.png",
-                                      color: grey,
+                        onTap: () => pickImage(2),
+                        child: Container(
+                          height: 150,
+                          width: 150,
+                          padding: const EdgeInsets.all(50),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: green, width: 1),
+                            borderRadius: BorderRadius.circular(10),
+                            image: (selected2 != null)
+                                ? DecorationImage(
+                                    image: FileImage(selected2!),
+                                    fit: BoxFit.cover)
+                                : null,
+                          ),
+                          child: (selected2 != null)
+                              ? null
+                              : Stack(
+                                  alignment: Alignment.bottomRight,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: 6, bottom: 6),
+                                      child: Image.asset(
+                                        "assets/pictures/image.png",
+                                        color: grey,
+                                      ),
                                     ),
-                                  ),
-                                  const CircleAvatar(
-                                    backgroundColor: green,
-                                    radius: 12,
-                                    child: Icon(Icons.add, color: white),
-                                  )
-                                ],
-                              ),
+                                    const CircleAvatar(
+                                      backgroundColor: green,
+                                      radius: 12,
+                                      child: Icon(Icons.add, color: white),
+                                    )
+                                  ],
+                                ),
+                        ),
                       ),
-                    ),
                     ],
                   )
                 ],
@@ -146,7 +145,10 @@ class _PetProfilePhotoState extends State<PetProfilePhoto> {
                 child: authElevatedButton(
                   context,
                   (selected != null)
-                      ? () => Navigator.pushNamed(context, 'home')
+                      ? () {
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, 'home', (route) => false);
+                        }
                       : null,
                 ),
               )

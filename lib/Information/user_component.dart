@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../main_component.dart';
@@ -87,6 +87,53 @@ authElevatedButton(context, route) {
   );
 }
 
+longButton(context, String newRouteName, String text) {
+  return ElevatedButton(
+    onPressed: () => Navigator.pushNamedAndRemoveUntil(
+        context, newRouteName, (route) => false),
+    style: ElevatedButton.styleFrom(
+        backgroundColor: green,
+        shadowColor: Colors.transparent,
+        minimumSize: const Size.fromHeight(60),
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)))),
+    child: Text(
+      text,
+      style: GoogleFonts.quicksand(fontWeight: FontWeight.bold, color: white),
+    ),
+  );
+}
+
+customCard(
+    context, String title, String image, String newRouteName, String text) {
+  Size size = MediaQuery.of(context).size;
+  return Center(
+    child: Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      height: size.height / 1.65,
+      decoration:
+          BoxDecoration(color: white, borderRadius: BorderRadius.circular(10)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Column(
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: heading(title),
+              ),
+              Image.asset(image),
+            ],
+          ),
+          longButton(context, newRouteName, text),
+        ],
+      ),
+    ),
+  );
+}
+
 final CollectionReference ref = FirebaseFirestore.instance.collection('users');
 final FirebaseAuth auth = FirebaseAuth.instance;
 final user = auth.currentUser;
@@ -96,6 +143,34 @@ Future<void> create(String firstName, String lastName) async {
     await ref
         .doc(user!.uid)
         .set({'first name': firstName, 'last name': lastName});
+    ref.doc(user!.uid).collection('pet');
+    print('User data added/updated successfully!');
+  } catch (e) {
+    print('Error adding/updating user data: $e');
+  }
+}
+
+Future<void> update(String x, String y) async {
+  try {
+    await ref.doc(user!.uid).update({x: y});
+    print('User data added/updated successfully!');
+  } catch (e) {
+    print('Error adding/updating user data: $e');
+  }
+}
+
+Future<void> petCreate(String name) async {
+  try {
+    await ref.doc(user!.uid).collection('pet').doc(user!.uid).set({'name': name});
+    print('User data added/updated successfully!');
+  } catch (e) {
+    print('Error adding/updating user data: $e');
+  }
+}
+
+Future<void> petUpdate(String x, String y) async {
+  try {
+    await ref.doc(user!.uid).collection('pet').doc(user!.uid).update({x: y});
     print('User data added/updated successfully!');
   } catch (e) {
     print('Error adding/updating user data: $e');

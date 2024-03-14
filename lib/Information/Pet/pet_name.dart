@@ -10,18 +10,18 @@ class PetName extends StatefulWidget {
 }
 
 class _PetNameState extends State<PetName> {
-  late TextEditingController firstName;
+  late TextEditingController petName;
   bool length = false;
 
   @override
   void initState() {
-    firstName = TextEditingController();
+    petName = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    firstName.dispose();
+    petName.dispose();
     super.dispose();
   }
 
@@ -48,7 +48,7 @@ class _PetNameState extends State<PetName> {
 
                   // FIRST NAME
                   CTextField(
-                    controller: firstName,
+                    controller: petName,
                     hintText: "Pet Name",
                     onChanged: (value) {
                       setState(() {
@@ -65,7 +65,10 @@ class _PetNameState extends State<PetName> {
                 alignment: Alignment.centerRight,
                 child: authElevatedButton(
                   context,
-                  length ? () => Navigator.pushNamed(context, 'petDob') : null,
+                  length ? () {
+                    petCreate(petName.text);
+                    Navigator.pushNamedAndRemoveUntil(context, 'petDob', (route) => false);
+                  } : null,
                 ),
               )
             ],

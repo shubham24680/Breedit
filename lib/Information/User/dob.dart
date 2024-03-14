@@ -40,11 +40,12 @@ class _DOBState extends State<DOB> {
             firstDate: DateTime(2000),
             lastDate: DateTime.now())
         .then((value) {
-      dob.text =
-          value != null ? "${value.day}-${value.month}-${value.year}" : dob.text;
-          setState(() {
-            length = dob.text.isNotEmpty;
-          });
+      dob.text = value != null
+          ? "${value.day}-${value.month}-${value.year}"
+          : dob.text;
+      setState(() {
+        length = dob.text.isNotEmpty;
+      });
     });
   }
 
@@ -84,7 +85,12 @@ class _DOBState extends State<DOB> {
                 alignment: Alignment.centerRight,
                 child: authElevatedButton(
                   context,
-                  length ? () => Navigator.pushNamed(context, 'gender') : null,
+                  length
+                      ? () {
+                          update('dob', dob.text);
+                          Navigator.pushNamedAndRemoveUntil(context, 'gender', (route) => false);
+                        }
+                      : null,
                 ),
               )
             ],
