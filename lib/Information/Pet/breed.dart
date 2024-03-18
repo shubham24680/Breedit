@@ -2,26 +2,26 @@ import 'package:flutter/material.dart';
 
 import '../user_component.dart';
 
-class PetName extends StatefulWidget {
-  const PetName({super.key});
+class PetBreed extends StatefulWidget {
+  const PetBreed({super.key});
 
   @override
-  State<PetName> createState() => _PetNameState();
+  State<PetBreed> createState() => _PetBreedState();
 }
 
-class _PetNameState extends State<PetName> {
-  late TextEditingController petName;
+class _PetBreedState extends State<PetBreed> {
+  late TextEditingController petBreed;
   bool length = false;
 
   @override
   void initState() {
-    petName = TextEditingController();
+    petBreed = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    petName.dispose();
+    petBreed.dispose();
     super.dispose();
   }
 
@@ -39,17 +39,17 @@ class _PetNameState extends State<PetName> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // IMAGE
-                  image("assets/icons/id-card.png"),
+                  image("assets/icons/breed.png"),
                   const SizedBox(height: 20),
 
                   // HEADING
-                  heading("What's your pet name?"),
+                  heading("What's your pet breed?"),
                   const SizedBox(height: 40),
 
                   // FIRST NAME
                   CTextField(
-                    controller: petName,
-                    hintText: "Pet Name",
+                    controller: petBreed,
+                    hintText: "Pet Breed",
                     onChanged: (value) {
                       setState(() {
                         length = value.isNotEmpty;
@@ -66,8 +66,8 @@ class _PetNameState extends State<PetName> {
                 child: authElevatedButton(
                   context,
                   length ? () {
-                    petUpdate('name', petName.text);
-                    Navigator.pushNamedAndRemoveUntil(context, 'petBreed', (route) => false);
+                    petUpdate('breed', petBreed.text);
+                    Navigator.pushNamedAndRemoveUntil(context, 'petDob', (route) => false);
                   } : null,
                 ),
               )

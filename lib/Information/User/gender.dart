@@ -14,7 +14,7 @@ class Gender extends StatefulWidget {
 class _GenderState extends State<Gender> {
   int select = 0;
 
-  List<String> gender = ["Man", "Woman", "Non-binary"];
+  List<String> gender = ["Male", "Female", "Non-binary"];
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +93,7 @@ class _GenderState extends State<Gender> {
                   () {
                     update('gender', gender[select]);
                     Navigator.pushNamedAndRemoveUntil(
-                        context, 'profilePhoto', (route) => false);
+                        context, 'petInfo', (route) => false);
                   },
                 ),
               )

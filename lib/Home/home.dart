@@ -19,7 +19,6 @@ class _HomeState extends State<Home> {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.grey[200],
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

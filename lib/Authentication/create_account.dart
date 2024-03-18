@@ -135,14 +135,6 @@ class _CreateAccountState extends State<CreateAccount> {
                   BottomText(
                       onTap: () => _launchURL(),
                       text: "What if my number changes?"),
-                  // GestureDetector(
-                  //   onTap: _launchURL,
-                  //   child: Text(
-                  //     "What if my number changes?",
-                  //     style: GoogleFonts.quicksand(
-                  //         color: green, fontWeight: FontWeight.w900),
-                  //   ),
-                  // ),
 
                   // NAVIGATION BUTTON
                   authElevatedButton(

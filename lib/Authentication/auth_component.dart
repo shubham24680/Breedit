@@ -117,9 +117,8 @@ Future sendCode(String countryCode, String phoneNumber) async {
         verificationFailed: (FirebaseAuthException e) {},
         codeSent: (String verificationId, int? forceResendingToken) {
           CreateAccount.verify = verificationId;
-          Timer(const Duration(seconds: 10), () {});
         },
-        timeout: const Duration(seconds: 120),
+        timeout: const Duration(seconds: 90),
         codeAutoRetrievalTimeout: (String verificationId) {});
   } on FirebaseAuthException catch (e) {
     print(e);

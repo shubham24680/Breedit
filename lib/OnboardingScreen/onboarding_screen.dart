@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../main_component.dart';
@@ -11,8 +10,6 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: AnnotatedRegion(
-        value: SystemUiOverlayStyle(statusBarColor: black),
         child: Scaffold(
           body: Container(
             padding: const EdgeInsets.only(left: 25, right: 25, bottom: 20),
@@ -62,7 +59,6 @@ class OnboardingScreen extends StatelessWidget {
             ),
           ),
         ),
-      ),
     );
   }
 }

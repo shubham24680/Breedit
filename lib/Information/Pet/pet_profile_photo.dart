@@ -1,10 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:google_fonts/google_fonts.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
 import '../../main_component.dart';
 import '../user_component.dart';
+import 'permissions.dart';
 
 class PetProfilePhoto extends StatefulWidget {
   const PetProfilePhoto({super.key});
@@ -14,29 +19,107 @@ class PetProfilePhoto extends StatefulWidget {
 }
 
 class _PetProfilePhotoState extends State<PetProfilePhoto> {
-  File? selected;
-  File? selected2;
+  final List<File?> _selected = List<File?>.generate(4, (index) => null);
+  bool _uploading = false;
+  bool _uploaded = false;
 
-  Future pickImage(int id) async {
+  Future pickImage(int index) async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (image == null) return;
+      if (await checkPermission()) {
+        final image =
+            await ImagePicker().pickImage(source: ImageSource.gallery);
+        if (image == null) return;
 
-      final imagePath = File(image.path);
-      setState(() {
-        if (id == 1) {
-          selected = imagePath;
-        } else {
-          selected2 = imagePath;
-        }
-      });
+        final imagePath = File(image.path);
+        setState(() {
+          _selected[index] = imagePath;
+          _uploaded = true;
+        });
+      }
     } on PlatformException catch (e) {
       print("Error: $e");
     }
   }
 
+  Future<void> _uploadImages() async {
+    try {
+      setState(() {
+        _uploading = true;
+      });
+
+      List<String> url = [];
+      for (var image in _selected) {
+        if (image != null) {
+          String imageName = DateTime.now().millisecondsSinceEpoch.toString();
+          firebase_storage.Reference ref = firebase_storage
+              .FirebaseStorage.instance
+              .ref()
+              .child('image/$imageName.jpg');
+          firebase_storage.UploadTask uploadTask = ref.putFile(image);
+          firebase_storage.TaskSnapshot taskSnapshot = await uploadTask;
+          String dowloadUrl = await taskSnapshot.ref.getDownloadURL();
+          url.add(dowloadUrl);
+        }
+      }
+      petUpdate('images', url);
+
+      Timer(const Duration(seconds: 5), () {
+        setState(() {
+          url.clear();
+          _uploading = false;
+        });
+        print("Successful");
+      });
+    } catch (e) {
+      print('Error uploading images: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) async {
+        if (!(await checkPermission())) {
+          showDialog(
+            barrierColor: Colors.black54,
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                backgroundColor: Colors.white,
+                surfaceTintColor: Colors.transparent,
+                title: heading("Enable Storage Services"),
+                contentPadding: EdgeInsets.zero,
+                content: Wrap(
+                  children: [
+                    Image.asset('assets/pictures/storage.jpg'),
+                    ElevatedButton(
+                      onPressed: () => requestPermission(context),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: green,
+                        shadowColor: Colors.transparent,
+                        minimumSize: const Size.fromHeight(60),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                              bottom: Radius.circular(20)),
+                        ),
+                      ),
+                      child: Text(
+                        "Enable",
+                        style: GoogleFonts.quicksand(
+                            fontWeight: FontWeight.bold, color: white),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        }
+      },
+    );
+
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -57,25 +140,30 @@ class _PetProfilePhotoState extends State<PetProfilePhoto> {
                   const SizedBox(height: 40),
 
                   // PHOTO SELECTION
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      GestureDetector(
-                        onTap: () => pickImage(1),
+                  SizedBox(
+                    height: size.height / 2,
+                    child: GridView.builder(
+                      itemCount: _selected.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                      ),
+                      itemBuilder: (context, index) => GestureDetector(
+                        onTap: () => pickImage(index),
                         child: Container(
-                          height: 150,
-                          width: 150,
-                          padding: const EdgeInsets.all(50),
+                          padding: const EdgeInsets.all(60),
                           decoration: BoxDecoration(
                             border: Border.all(color: green, width: 1),
                             borderRadius: BorderRadius.circular(10),
-                            image: (selected != null)
+                            image: (_selected[index] != null)
                                 ? DecorationImage(
-                                    image: FileImage(selected!),
+                                    image: FileImage(_selected[index]!),
                                     fit: BoxFit.cover)
                                 : null,
                           ),
-                          child: (selected != null)
+                          child: (_selected[index] != null)
                               ? null
                               : Stack(
                                   alignment: Alignment.bottomRight,
@@ -97,60 +185,28 @@ class _PetProfilePhotoState extends State<PetProfilePhoto> {
                                 ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () => pickImage(2),
-                        child: Container(
-                          height: 150,
-                          width: 150,
-                          padding: const EdgeInsets.all(50),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: green, width: 1),
-                            borderRadius: BorderRadius.circular(10),
-                            image: (selected2 != null)
-                                ? DecorationImage(
-                                    image: FileImage(selected2!),
-                                    fit: BoxFit.cover)
-                                : null,
-                          ),
-                          child: (selected2 != null)
-                              ? null
-                              : Stack(
-                                  alignment: Alignment.bottomRight,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          right: 6, bottom: 6),
-                                      child: Image.asset(
-                                        "assets/pictures/image.png",
-                                        color: grey,
-                                      ),
-                                    ),
-                                    const CircleAvatar(
-                                      backgroundColor: green,
-                                      radius: 12,
-                                      child: Icon(Icons.add, color: white),
-                                    )
-                                  ],
-                                ),
-                        ),
-                      ),
-                    ],
-                  )
+                    ),
+                  ),
                 ],
               ),
 
               // NAVIGATION BUTTON
               Container(
                 alignment: Alignment.centerRight,
-                child: authElevatedButton(
-                  context,
-                  (selected != null)
-                      ? () {
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, 'home', (route) => false);
-                        }
-                      : null,
-                ),
+                child: _uploading
+                    ? const CircularProgressIndicator(
+                        color: green,
+                      )
+                    : authElevatedButton(
+                        context,
+                        (_uploaded)
+                            ? () {
+                                _uploadImages();
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context, 'petAbout', (route) => false);
+                              }
+                            : null,
+                      ),
               )
             ],
           ),

@@ -17,7 +17,6 @@ class _PetsInfoState extends State<PetsInfo> {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: white,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -45,20 +44,10 @@ class _PetsInfoState extends State<PetsInfo> {
                       ],
                     ),
                   ),
-                  longButton(context, 'petName', "Enter pets info"),
+                  longButton(context, 'petChoice', "Enter pets info"),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-            GestureDetector(
-              onTap: () => Navigator.pushNamedAndRemoveUntil(
-                  context, 'home', (route) => false),
-              child: Text(
-                "Yes, I want to skip",
-                style: GoogleFonts.quicksand(
-                    color: black, fontWeight: FontWeight.w900, fontSize: 16),
-              ),
-            )
           ],
         ),
       ),

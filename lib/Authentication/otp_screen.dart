@@ -44,8 +44,18 @@ class _OTPScreenState extends State<OTPScreen> {
       if (!mounted) {
         return;
       }
+      Navigator.pushNamedAndRemoveUntil(context, 'userInfo', (route) => false);
     } on FirebaseAuthException catch (e) {
-      print(e);
+      if (e.code == 'invalid-verification-code') {
+        print('Invalid OTP entered');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Invalid OTP. Please enter a valid OTP.'),
+          ),
+        );
+      } else {
+        print("Firebase Authentication Error: ${e.message}");
+      }
     }
   }
 
@@ -120,27 +130,6 @@ class _OTPScreenState extends State<OTPScreen> {
                     text: "Didn't get a code?",
                     color: onPressedValue ? null : Colors.grey.shade400,
                   ),
-                  // GestureDetector(
-                  //   onTap: onPressedValue
-                  //       ? () {
-                  //           setState(() {
-                  //             onPressedValue = false;
-                  //           });
-                  //           Timer(const Duration(seconds: 30), () {
-                  //             setState(() {
-                  //               onPressedValue = true;
-                  //             });
-                  //           });
-                  //         }
-                  //       : null,
-                  //   child: Text(
-                  //     "Didn't get a code?",
-                  //     style: GoogleFonts.quicksand(
-                  //       color: onPressedValue ? green : Colors.grey.shade400,
-                  //       fontWeight: FontWeight.w900,
-                  //     ),
-                  //   ),
-                  // ),
 
                   // NAVIGATON BUTTON
                   authElevatedButton(
@@ -148,8 +137,6 @@ class _OTPScreenState extends State<OTPScreen> {
                     active
                         ? () {
                             getVerified();
-                            Navigator.pushNamedAndRemoveUntil(
-                                context, 'userInfo', (route) => false);
                           }
                         : null,
                   ),
