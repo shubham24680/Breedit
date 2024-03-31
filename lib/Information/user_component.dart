@@ -108,11 +108,13 @@ final CollectionReference ref = FirebaseFirestore.instance.collection('users');
 final FirebaseAuth auth = FirebaseAuth.instance;
 final user = auth.currentUser;
 
-Future<void> create(String firstName, String lastName) async {
+Future<void> create(
+    String firstName, String lastName) async {
   try {
-    await ref
-        .doc(user!.uid)
-        .set({'first name': firstName, 'last name': lastName});
+    await ref.doc(user!.uid).set({
+      'first name': firstName,
+      'last name': lastName,
+    });
     print('User data added/updated successfully!');
   } catch (e) {
     print('Error adding/updating user data: $e');

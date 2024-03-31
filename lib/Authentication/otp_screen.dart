@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
@@ -36,15 +37,15 @@ class _OTPScreenState extends State<OTPScreen> {
     );
   }
 
-  Future getVerified() async {
+  Future<void> getVerified() async {
     try {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
           verificationId: CreateAccount.verify, smsCode: code);
-      await FirebaseAuth.instance.signInWithCredential(credential);
-      if (!mounted) {
-        return;
-      }
-      Navigator.pushNamedAndRemoveUntil(context, 'userInfo', (route) => false);
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      String uid = userCredential.user!.uid;
+      bool hasImage = await hasImagesInPetDocument(uid);
+      navigateToScreen(hasImage);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-verification-code') {
         print('Invalid OTP entered');
@@ -56,6 +57,30 @@ class _OTPScreenState extends State<OTPScreen> {
       } else {
         print("Firebase Authentication Error: ${e.message}");
       }
+    }
+  }
+
+  Future<bool> hasImagesInPetDocument(String uid) async {
+    try {
+      final ref = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('pet')
+          .doc(uid)
+          .get();
+
+      return ref.exists && ref.data()!.containsKey('images');
+    } catch (e) {
+      print("Error retrieving pet document: $e");
+      return false;
+    }
+  }
+
+  void navigateToScreen(bool hasImage) {
+    if (hasImage) {
+      Navigator.pushNamedAndRemoveUntil(context, 'homeInfo', (route) => false);
+    } else {
+      Navigator.pushNamedAndRemoveUntil(context, 'userInfo', (route) => false);
     }
   }
 

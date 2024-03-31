@@ -35,7 +35,7 @@ class _PetAboutState extends State<PetAbout> {
           padding:
               const EdgeInsets.only(left: 25, right: 25, bottom: 10, top: 80),
           child: SizedBox(
-            height: MediaQuery.of(context).size.height - 120,
+            height: MediaQuery.of(context).size.height - 130,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -92,7 +92,7 @@ class _PetAboutState extends State<PetAbout> {
                         petUpdate('about', petAbout.text);
                       }
                       Navigator.pushNamedAndRemoveUntil(
-                          context, 'home', (route) => false);
+                          context, 'homeInfo', (route) => false);
                     },
                   ),
                 )

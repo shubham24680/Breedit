@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'OnboardingScreen/onboarding_screen.dart';
 import 'Authentication/create_account.dart';
 import 'Information/User/user_info.dart';
 import 'Information/User/name.dart';
@@ -13,9 +14,11 @@ import 'Information/Pet/pet_gender.dart';
 import 'Information/Pet/pet_dob.dart';
 import 'Information/Pet/pet_profile_photo.dart';
 import 'Information/Pet/pet_about.dart';
+import 'Home/home_info.dart';
 import 'Home/home.dart';
 
 Map<String, WidgetBuilder> routes = {
+  'onboarding': (context) => const OnboardingScreen(),
   'createAccount': (context) => const CreateAccount(),
   'userInfo': (context) => const UserInformation(),
   'name': (context) => const Name(),
@@ -29,5 +32,6 @@ Map<String, WidgetBuilder> routes = {
   'petGender': (context) => const PetGender(),
   'petProfilePhoto': (context) => const PetProfilePhoto(),
   'petAbout': (context) => const PetAbout(),
+  'homeInfo': (context) => const HomeInfo(),
   'home': (context) => const Home(),
 };

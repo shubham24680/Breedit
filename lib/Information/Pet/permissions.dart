@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 const status = Permission.storage;
-Future<void> requestPermission(context) async {
+Future<void> requestPermission() async {
   await status.request();
-  Navigator.of(context).pop();
+  // Navigator.of(context).pop();
 }
 
 Future<bool> checkPermission() async {

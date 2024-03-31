@@ -7,7 +7,7 @@ import 'package:breedit/firebase_options.dart';
 import 'theme.dart';
 import 'route.dart';
 import 'OnboardingScreen/onboarding_screen.dart';
-import 'Home/home.dart';
+import 'Home/home_info.dart';
 import 'Information/User/user_info.dart';
 
 void main() async {
@@ -57,7 +57,7 @@ class _SecurityState extends State<Security> {
               if (snapshot.hasData && snapshot.data!.exists) {
                 data = snapshot.data!.data();
                 if (data!.containsKey('images')) {
-                  return const Home();
+                  return const HomeInfo();
                 }
               }
               return const UserInformation();

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:google_fonts/google_fonts.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
@@ -63,11 +62,11 @@ class _PetProfilePhotoState extends State<PetProfilePhoto> {
       }
       petUpdate('images', url);
 
-      Timer(const Duration(seconds: 5), () {
-        setState(() {
+      Timer(const Duration(seconds: 10), () {
+        // setState(() {
           url.clear();
           _uploading = false;
-        });
+        // });
         print("Successful");
       });
     } catch (e) {
@@ -81,42 +80,43 @@ class _PetProfilePhotoState extends State<PetProfilePhoto> {
 
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) async {
-        if (!(await checkPermission())) {
-          showDialog(
-            barrierColor: Colors.black54,
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                backgroundColor: Colors.white,
-                surfaceTintColor: Colors.transparent,
-                title: heading("Enable Storage Services"),
-                contentPadding: EdgeInsets.zero,
-                content: Wrap(
-                  children: [
-                    Image.asset('assets/pictures/storage.jpg'),
-                    ElevatedButton(
-                      onPressed: () => requestPermission(context),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: green,
-                        shadowColor: Colors.transparent,
-                        minimumSize: const Size.fromHeight(60),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                              bottom: Radius.circular(20)),
-                        ),
-                      ),
-                      child: Text(
-                        "Enable",
-                        style: GoogleFonts.quicksand(
-                            fontWeight: FontWeight.bold, color: white),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        }
+        await requestPermission();
+        // if (!(await checkPermission())) {
+        //   showDialog(
+        //     barrierColor: Colors.black54,
+        //     context: context,
+        //     builder: (BuildContext context) {
+        //       return AlertDialog(
+        //         backgroundColor: Colors.white,
+        //         surfaceTintColor: Colors.transparent,
+        //         title: heading("Enable Storage Services"),
+        //         contentPadding: EdgeInsets.zero,
+        //         content: Wrap(
+        //           children: [
+        //             Image.asset('assets/pictures/storage.jpg'),
+        //             ElevatedButton(
+        //               onPressed: () => requestPermission(context),
+        //               style: ElevatedButton.styleFrom(
+        //                 backgroundColor: green,
+        //                 shadowColor: Colors.transparent,
+        //                 minimumSize: const Size.fromHeight(60),
+        //                 shape: const RoundedRectangleBorder(
+        //                   borderRadius: BorderRadius.vertical(
+        //                       bottom: Radius.circular(20)),
+        //                 ),
+        //               ),
+        //               child: Text(
+        //                 "Enable",
+        //                 style: GoogleFonts.quicksand(
+        //                     fontWeight: FontWeight.bold, color: white),
+        //               ),
+        //             ),
+        //           ],
+        //         ),
+        //       );
+        //     },
+        //   );
+        // }
       },
     );
 
