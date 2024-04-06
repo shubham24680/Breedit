@@ -78,7 +78,7 @@ class _OTPScreenState extends State<OTPScreen> {
 
   void navigateToScreen(bool hasImage) {
     if (hasImage) {
-      Navigator.pushNamedAndRemoveUntil(context, 'homeInfo', (route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
     } else {
       Navigator.pushNamedAndRemoveUntil(context, 'userInfo', (route) => false);
     }
