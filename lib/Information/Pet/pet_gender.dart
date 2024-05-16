@@ -91,7 +91,7 @@ class _PetGenderState extends State<PetGender> {
                 child: authElevatedButton(
                   context,
                   () {
-                    petUpdate('gender', gender[select]);
+                    // petUpdate('gender', gender[select]);
                     Navigator.pushNamedAndRemoveUntil(context, 'petProfilePhoto', (route) => false);
                   },
                 ),

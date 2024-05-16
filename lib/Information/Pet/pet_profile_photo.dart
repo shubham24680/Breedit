@@ -1,14 +1,14 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
 import '../../main_component.dart';
 import '../user_component.dart';
-import 'permissions.dart';
+// import '../permissions.dart';
 
 class PetProfilePhoto extends StatefulWidget {
   const PetProfilePhoto({super.key});
@@ -22,23 +22,23 @@ class _PetProfilePhotoState extends State<PetProfilePhoto> {
   bool _uploading = false;
   bool _uploaded = false;
 
-  Future pickImage(int index) async {
-    try {
-      if (await checkPermission()) {
-        final image =
-            await ImagePicker().pickImage(source: ImageSource.gallery);
-        if (image == null) return;
+  // Future pickImage(int index) async {
+  //   try {
+  //     if (await checkPermission()) {
+  //       final image =
+  //           await ImagePicker().pickImage(source: ImageSource.gallery);
+  //       if (image == null) return;
 
-        final imagePath = File(image.path);
-        setState(() {
-          _selected[index] = imagePath;
-          _uploaded = true;
-        });
-      }
-    } on PlatformException catch (e) {
-      print("Error: $e");
-    }
-  }
+  //       final imagePath = File(image.path);
+  //       setState(() {
+  //         _selected[index] = imagePath;
+  //         _uploaded = true;
+  //       });
+  //     }
+  //   } on PlatformException catch (e) {
+  //     print("Error: $e");
+  //   }
+  // }
 
   Future<void> _uploadImages() async {
     try {
@@ -60,7 +60,7 @@ class _PetProfilePhotoState extends State<PetProfilePhoto> {
           url.add(dowloadUrl);
         }
       }
-      petUpdate('images', url);
+      // petUpdate('images', url);
 
       Timer(const Duration(seconds: 10), () {
         // setState(() {
@@ -80,7 +80,7 @@ class _PetProfilePhotoState extends State<PetProfilePhoto> {
 
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) async {
-        await requestPermission();
+        // await requestPermission();
         // if (!(await checkPermission())) {
         //   showDialog(
         //     barrierColor: Colors.black54,
@@ -151,7 +151,7 @@ class _PetProfilePhotoState extends State<PetProfilePhoto> {
                         crossAxisSpacing: 10,
                       ),
                       itemBuilder: (context, index) => GestureDetector(
-                        onTap: () => pickImage(index),
+                        // onTap: () => pickImage(index),
                         child: Container(
                           padding: const EdgeInsets.all(60),
                           decoration: BoxDecoration(

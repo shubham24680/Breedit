@@ -82,7 +82,7 @@ class _PetChoiceState extends State<PetChoice> {
                 child: authElevatedButton(
                   context,
                   () {
-                    petCreate((select == 0) ? "Dog" : "Cat");
+                    // petCreate((select == 0) ? "Dog" : "Cat");
                     Navigator.pushNamedAndRemoveUntil(
                         context, 'petName', (route) => false);
                   },

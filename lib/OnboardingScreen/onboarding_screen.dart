@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../main_component.dart';
@@ -9,6 +10,7 @@ class OnboardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return SafeArea(
         child: Scaffold(
           body: Container(
@@ -22,6 +24,8 @@ class OnboardingScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                SvgPicture.asset('assets/pictures/green.svg', width: 180),
+                SizedBox(height: size.height/2.4),
                 RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(

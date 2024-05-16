@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../main_component.dart';
 import '../user_component.dart';
 
-class UserInformation extends StatelessWidget {
-  const UserInformation({super.key});
+class Information extends StatelessWidget {
+  const Information({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class UserInformation extends StatelessWidget {
                     Image.asset("assets/pictures/pets.jpg"),
                   ],
                 ),
-                longButton(context, 'name', "Enter basic info"),
+                longButton(context, 'userInformation', "Enter basic info"),
               ],
             ),
           ),

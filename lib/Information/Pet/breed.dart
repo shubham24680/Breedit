@@ -66,7 +66,7 @@ class _PetBreedState extends State<PetBreed> {
                 child: authElevatedButton(
                   context,
                   length ? () {
-                    petUpdate('breed', petBreed.text);
+                    // petUpdate('breed', petBreed.text);
                     Navigator.pushNamedAndRemoveUntil(context, 'petDob', (route) => false);
                   } : null,
                 ),

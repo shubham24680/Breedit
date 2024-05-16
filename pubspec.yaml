@@ -39,7 +39,7 @@ dependencies:
   cloud_firestore: ^4.14.0
 
   cupertino_icons: ^1.0.2
-  flutter_native_splash: ^2.2.19
+  flutter_native_splash: ^2.4.0
   google_fonts: ^6.2.1
   url_launcher: ^6.1.11
   flutter_svg: ^2.0.5
@@ -51,7 +51,7 @@ dependencies:
   firebase_storage: ^11.6.10
   
 flutter_native_splash:
-  image: assets/pictures/playstore.png
+  image: assets/pictures/green_logo.png
   color: "#ffffff"
 
 dev_dependencies:

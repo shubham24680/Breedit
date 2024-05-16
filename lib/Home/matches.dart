@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../main_component.dart';
@@ -14,15 +15,15 @@ class Matches extends StatefulWidget {
 class _MatchesState extends State<Matches> {
   int selectIndex = 0;
   String name = "";
-  var url;
+  List<String> url = [];
 
-  @override
+    @override
   void initState() {
     super.initState();
     if (mounted) {
       setState(() {
         name = data['first name'] + " " + data['last name'];
-        url = List.from(petData['images']);
+        // url = List.from(petData['images']);
       });
     }
   }
@@ -30,59 +31,45 @@ class _MatchesState extends State<Matches> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: SingleChildScrollView(
+
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Column(
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    heading(name),
+                    Text("Active today",
+                        style: GoogleFonts.quicksand(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: green)),
+                  ],
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.more_horiz),
+                )
+              ],
+            ),
             SizedBox(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                heading(name),
-                                Text("Active today",
-                                    style: GoogleFonts.quicksand(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                        color: green)),
-                              ],
-                            ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.more_horiz),
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        SizedBox(
-                          height: size.width,
-                          width: size.width,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: url != null
-                                ? Image.network(
-                                    url[0],
-                                    fit: BoxFit.cover,
-                                  )
-                                : const Center(
-                                    child:
-                                        CircularProgressIndicator(color: green),
-                                  ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
+              height: (size.width + 20) * (url.length),
+              child: ListView.builder(
+                itemCount: url.length,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      const SizedBox(height: 20),
+                      ImageCard(url: url, index: index),
+                    ],
+                  );
+                },
               ),
             ),
           ],

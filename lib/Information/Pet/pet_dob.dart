@@ -85,7 +85,7 @@ class _PetDOBState extends State<PetDOB> {
                 child: authElevatedButton(
                   context,
                   length ? () {
-                    petUpdate('dob', dob.text);
+                    // petUpdate('dob', dob.text);
                     Navigator.pushNamedAndRemoveUntil(context, 'petGender', (route) => false);
                   } : null,
                 ),

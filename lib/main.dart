@@ -50,17 +50,14 @@ class _SecurityState extends State<Security> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           String uid = snapshot.data!.uid;
-          final ref = FirebaseFirestore.instance.collection('users').doc(uid).collection('pet').doc(uid);
+          final ref = FirebaseFirestore.instance.collection('users').doc(uid);
           return FutureBuilder(
             future: ref.get(),
             builder: (context, snapshot) {
               if (snapshot.hasData && snapshot.data!.exists) {
-                data = snapshot.data!.data();
-                if (data!.containsKey('images')) {
-                  return const Home();
-                }
+                return const Home();
               }
-              return const UserInformation();
+              return const Information();
             },
           );
         }

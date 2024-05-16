@@ -89,7 +89,7 @@ class _PetAboutState extends State<PetAbout> {
                     context,
                     () {
                       if (petAbout.text.isNotEmpty) {
-                        petUpdate('about', petAbout.text);
+                        // petUpdate('about', petAbout.text);
                       }
                       Navigator.pushNamedAndRemoveUntil(
                           context, 'homeInfo', (route) => false);

@@ -109,11 +109,13 @@ final FirebaseAuth auth = FirebaseAuth.instance;
 final user = auth.currentUser;
 
 Future<void> create(
-    String firstName, String lastName) async {
+    String firstName, String lastName, String dob, String gender) async {
   try {
     await ref.doc(user!.uid).set({
       'first name': firstName,
       'last name': lastName,
+      'date of birth': dob,
+      'gender': gender,
     });
     print('User data added/updated successfully!');
   } catch (e) {
@@ -130,20 +132,20 @@ Future<void> update(String x, String y) async {
   }
 }
 
-Future<void> petCreate(String pet) async {
-  try {
-    await ref.doc(user!.uid).collection('pet').doc(user!.uid).set({'pet': pet});
-    print('User data added/updated successfully!');
-  } catch (e) {
-    print('Error adding/updating user data: $e');
-  }
-}
+// Future<void> petCreate(String pet) async {
+//   try {
+//     await ref.doc(user!.uid).collection('pet').doc(user!.uid).set({'pet': pet});
+//     print('User data added/updated successfully!');
+//   } catch (e) {
+//     print('Error adding/updating user data: $e');
+//   }
+// }
 
-Future<void> petUpdate(String x, var y) async {
-  try {
-    await ref.doc(user!.uid).collection('pet').doc(user!.uid).update({x: y});
-    print('User data added/updated successfully!');
-  } catch (e) {
-    print('Error adding/updating user data: $e');
-  }
-}
+// Future<void> petUpdate(String x, var y) async {
+//   try {
+//     await ref.doc(user!.uid).collection('pet').doc(user!.uid).update({x: y});
+//     print('User data added/updated successfully!');
+//   } catch (e) {
+//     print('Error adding/updating user data: $e');
+//   }
+// }
