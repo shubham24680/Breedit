@@ -15,8 +15,15 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   int select = 0;
-  List<String> button = ["Edit profile", "Feedback", "Help centre", "Sign out"];
+  List<String> button = [
+    "Settings",
+    "Edit profile",
+    "Feedback",
+    "Help centre",
+    "Sign out"
+  ];
   List<String> icon = [
+    "assets/icons/filter.svg",
     "assets/icons/edit_profile.svg",
     "assets/icons/feedback.svg",
     "assets/icons/help-centre.svg",
@@ -27,7 +34,7 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     return Container(
       height: 73.0 * button.length,
-      padding: const EdgeInsets.only(left: 20, right:20, top: 20),
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
       child: ListView.builder(
         itemCount: button.length,
         physics: const NeverScrollableScrollPhysics(),
@@ -57,6 +64,7 @@ class _SettingsState extends State<Settings> {
                     SvgPicture.asset(
                       icon[index],
                       color: black,
+                      height: 24,
                     ),
                     const SizedBox(width: 20),
                     Text(

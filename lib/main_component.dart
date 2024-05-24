@@ -7,3 +7,6 @@ const white = Colors.white;
 const brown = Color(0xFFf0f1ec);
 const background = Color(0xFFf7ebdb);
 const red = Color(0xFFFF5666);
+const neoOrange = Color(0xFFF75C03);
+const neoBlue = Color(0xFF938274);
+const neoGreen = Color(0xFF3CB371);

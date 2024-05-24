@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pinput/pinput.dart';
 
 import '/main_component.dart';
-import 'chats.dart';
-import '/Home/matches.dart';
+
+import 'Choices/choice.dart';
+import 'Messages/chats.dart';
 import 'Profile/profile.dart';
 
 class Home extends StatefulWidget {
@@ -20,10 +20,10 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    const List<Widget> pages = <Widget>[
-      Matches(),
-      Chats(),
-      Profile(),
+    List<Widget> pages = <Widget>[
+      Choice(),
+      const Chats(),
+      const Profile(),
     ];
 
     return AnnotatedRegion(

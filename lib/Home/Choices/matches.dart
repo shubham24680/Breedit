@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../main_component.dart';
-import 'home_component.dart';
+import '../../main_component.dart';
+import '../home_component.dart';
 
 class Matches extends StatefulWidget {
   const Matches({super.key});
