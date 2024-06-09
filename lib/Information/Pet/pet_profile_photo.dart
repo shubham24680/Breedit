@@ -2,9 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:image_picker/image_picker.dart';
 
 import '../../main_component.dart';
 import '../user_component.dart';
@@ -20,7 +18,7 @@ class PetProfilePhoto extends StatefulWidget {
 class _PetProfilePhotoState extends State<PetProfilePhoto> {
   final List<File?> _selected = List<File?>.generate(4, (index) => null);
   bool _uploading = false;
-  bool _uploaded = false;
+  final bool _uploaded = false;
 
   // Future pickImage(int index) async {
   //   try {

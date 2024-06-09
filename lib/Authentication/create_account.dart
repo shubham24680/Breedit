@@ -42,6 +42,7 @@ class _CreateAccountState extends State<CreateAccount> {
       showPhoneCode: true,
       favorite: ["IN"],
       countryListTheme: CountryListThemeData(
+        backgroundColor: background,
         bottomSheetHeight: MediaQuery.of(context).size.height,
         borderRadius: BorderRadius.circular(0),
         flagSize: 20,

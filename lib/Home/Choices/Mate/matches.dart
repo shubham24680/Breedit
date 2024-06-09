@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../main_component.dart';
-import '../home_component.dart';
+import '../../../main_component.dart';
+import '../../home_component.dart';
 
 class Matches extends StatefulWidget {
   const Matches({super.key});
@@ -13,11 +12,11 @@ class Matches extends StatefulWidget {
 }
 
 class _MatchesState extends State<Matches> {
-  int selectIndex = 0;
+  // int selectIndex = 0;
   String name = "";
-  List<String> url = [];
+  // List<String> url = [];
 
-    @override
+  @override
   void initState() {
     super.initState();
     if (mounted) {
@@ -28,56 +27,130 @@ class _MatchesState extends State<Matches> {
     }
   }
 
+  filter() {
+    return ElevatedButton(
+      onPressed: () {},
+      style: ElevatedButton.styleFrom(
+        elevation: 0,
+        backgroundColor: background,
+        foregroundColor: black,
+        side: BorderSide(color: black),
+      ),
+      child: Text(
+        "Age",
+        style: GoogleFonts.quicksand(color: black, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    heading(name),
-                    Text("Active today",
-                        style: GoogleFonts.quicksand(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            color: green)),
-                  ],
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.more_horiz),
-                )
-              ],
-            ),
-            SizedBox(
-              height: (size.width + 20) * (url.length),
-              child: ListView.builder(
-                itemCount: url.length,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      const SizedBox(height: 20),
-                      ImageCard(url: url, index: index),
-                    ],
-                  );
-                },
-              ),
+    stories() {
+      return SizedBox(
+        height: 36,
+        width: size.width,
+        child: ListView.builder(
+          itemCount: 10,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) => Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: filter(),
+          ),
+        ),
+      );
+    }
+
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: background,
+          surfaceTintColor: background,
+          actions: [
+            IconButton(
+              onPressed: () => Navigator.pushNamed(context, 'edit'),
+              icon: const Icon(Icons.filter_list),
             ),
           ],
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 10),
+              stories(),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 15, right: 15, top: 10, bottom: 100),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            heading(name),
+                            Text(
+                              "Active today",
+                              style: GoogleFonts.quicksand(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  color: green),
+                            ),
+                          ],
+                        ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.more_horiz),
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    ImageCard(url: "assets/pictures/wallpaperflare.jpg"),
+                    const SizedBox(height: 20),
+                    // const TextCard(top: "I go crazy for", bottom: "Meat"),
+                    // const SizedBox(height: 20),
+                    ImageCard(url: "assets/pictures/1324832.png"),
+                    const SizedBox(height: 20),
+                    ImageCard(url: "assets/pictures/8733690.jpg"),
+                    const SizedBox(height: 20),
+                    // const TextCard(top: "I go crazy for", bottom: "Meat"),
+                    // const SizedBox(height: 20),
+                    ImageCard(url: "assets/pictures/20200304_020853.jpg"),
+                    // const SizedBox(height: 20),
+                    // const TextCard(top: "I go crazy for", bottom: "Meat"),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          backgroundColor: green,
+          child: const Icon(Icons.close, color: white),
         ),
       ),
     );
   }
 }
+
+// SizedBox(
+//                   height: (size.width + 20) * (url.length),
+//                   child: ListView.builder(
+//                     itemCount: url.length,
+//                     physics: const NeverScrollableScrollPhysics(),
+//                     itemBuilder: (context, index) {
+//                       return Column(
+//                         children: [
+//                           const SizedBox(height: 20),
+//                           ImageCard(url: url, index: index),
+//                         ],
+//                       );
+//                     },
+//                   ),
+//                 ),
 
 // SafeArea(
 //       child: SingleChildScrollView(

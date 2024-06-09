@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -44,37 +41,47 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBvCMYmwmZ1MGFP0UdVVbUxSf6AD2Zt4io',
-    appId: '1:417213841022:web:c8304fe0dfcb849645622f',
-    messagingSenderId: '417213841022',
-    projectId: 'breedit-36cb7',
-    authDomain: 'breedit-36cb7.firebaseapp.com',
-    storageBucket: 'breedit-36cb7.appspot.com',
+    apiKey: 'AIzaSyAEpSgOjAV0yl9OQzjQmznZI6cTw_sinMQ',
+    appId: '1:307114636792:web:7ded3b6a8a83e7a61b920d',
+    messagingSenderId: '307114636792',
+    projectId: 'breedit-81cfe',
+    authDomain: 'breedit-81cfe.firebaseapp.com',
+    storageBucket: 'breedit-81cfe.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAN6bBjEwFQoUOpeDlOBMpBjHG13qoTsMY',
-    appId: '1:417213841022:android:fee61a388b7a3ec745622f',
-    messagingSenderId: '417213841022',
-    projectId: 'breedit-36cb7',
-    storageBucket: 'breedit-36cb7.appspot.com',
+    apiKey: 'AIzaSyCFgPt37DJfQ83X4dGTRynZ74xjFKDUKKs',
+    appId: '1:307114636792:android:e2b9e197cd003a171b920d',
+    messagingSenderId: '307114636792',
+    projectId: 'breedit-81cfe',
+    storageBucket: 'breedit-81cfe.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyD5PG8EEK9JEMzJ_qBedu8E3tP0-8pRlmM',
-    appId: '1:417213841022:ios:6cc1f050a995545445622f',
-    messagingSenderId: '417213841022',
-    projectId: 'breedit-36cb7',
-    storageBucket: 'breedit-36cb7.appspot.com',
+    apiKey: 'AIzaSyCU8Wp_9L3A2pEtQKkDTpgYP0srPWKf0iA',
+    appId: '1:307114636792:ios:2d851291310cc9d81b920d',
+    messagingSenderId: '307114636792',
+    projectId: 'breedit-81cfe',
+    storageBucket: 'breedit-81cfe.appspot.com',
     iosBundleId: 'com.example.breedit',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyD5PG8EEK9JEMzJ_qBedu8E3tP0-8pRlmM',
-    appId: '1:417213841022:ios:6cc1f050a995545445622f',
-    messagingSenderId: '417213841022',
-    projectId: 'breedit-36cb7',
-    storageBucket: 'breedit-36cb7.appspot.com',
+    apiKey: 'AIzaSyCU8Wp_9L3A2pEtQKkDTpgYP0srPWKf0iA',
+    appId: '1:307114636792:ios:2d851291310cc9d81b920d',
+    messagingSenderId: '307114636792',
+    projectId: 'breedit-81cfe',
+    storageBucket: 'breedit-81cfe.appspot.com',
     iosBundleId: 'com.example.breedit',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyAEpSgOjAV0yl9OQzjQmznZI6cTw_sinMQ',
+    appId: '1:307114636792:web:c80584bf15f6dd2c1b920d',
+    messagingSenderId: '307114636792',
+    projectId: 'breedit-81cfe',
+    authDomain: 'breedit-81cfe.firebaseapp.com',
+    storageBucket: 'breedit-81cfe.appspot.com',
+  );
+
 }

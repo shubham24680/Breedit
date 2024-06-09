@@ -46,10 +46,10 @@ class _SettingsState extends State<Settings> {
                   setState(() {
                     select = index;
                     switch (select) {
-                      case 2:
+                      case 3:
                         UrlLauncher("https://hingeapp.zendesk.com/hc/en-us");
                         break;
-                      case 3:
+                      case 4:
                         FirebaseAuth.instance.signOut();
                         Navigator.pushNamedAndRemoveUntil(
                             context, 'onboarding', (route) => false);

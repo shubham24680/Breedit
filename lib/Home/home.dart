@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     List<Widget> pages = <Widget>[
-      Choice(),
+      const Choice(),
       const Chats(),
       const Profile(),
     ];

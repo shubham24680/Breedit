@@ -113,9 +113,9 @@ class _ProfileState extends State<Profile> {
             dividerColor: background,
             labelColor: Colors.grey.shade900,
             unselectedLabelColor: Colors.grey,
-            overlayColor: MaterialStateProperty.resolveWith<Color?>(
-              (Set<MaterialState> states) {
-                if (states.contains(MaterialState.hovered)) {
+            overlayColor: WidgetStateProperty.resolveWith<Color?>(
+              (Set<WidgetState> states) {
+                if (states.contains(WidgetState.hovered)) {
                   return green; //<-- SEE HERE
                 }
                 return null;

@@ -32,6 +32,7 @@ class _DOBState extends State<DOB> {
             builder: (context, child) => Theme(
                   data: Theme.of(context).copyWith(
                       colorScheme: const ColorScheme.light(
+                    onPrimary: background,
                     primary: green,
                   )),
                   child: child!,
@@ -88,7 +89,8 @@ class _DOBState extends State<DOB> {
                   length
                       ? () {
                           update('dob', dob.text);
-                          Navigator.pushNamedAndRemoveUntil(context, 'gender', (route) => false);
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, 'gender', (route) => false);
                         }
                       : null,
                 ),

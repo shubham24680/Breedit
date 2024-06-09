@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '/main_component.dart';
-// import '../home_component.dart';
 
 class Choice extends StatefulWidget {
   const Choice({super.key});
@@ -12,28 +11,15 @@ class Choice extends StatefulWidget {
 }
 
 class _ChoiceState extends State<Choice> {
-  // int selectIndex = 0;
-  // String name = "";
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   if (mounted) {
-  //     setState(() {
-  //       name = data['first name'] + " " + data['last name'];
-  //     });
-  //   }
-  // }
-
   final List<List<String>> item = [
-    ["assets/pictures/krista.jpg", "assets/icons/pawprint.png", "MATE"],
-    ["assets/pictures/eric.jpg", "assets/icons/adoption.png", "ADOPT"],
-    ["assets/pictures/jamie.jpg", "assets/icons/animal.png", "DONATE"]
+    ["assets/pictures/krista.jpg", "assets/icons/pawprint.png", "MATE", 'mate'],
+    ["assets/pictures/eric.jpg", "assets/icons/adoption.png", "ADOPT", 'mate'],
+    ["assets/pictures/jamie.jpg", "assets/icons/animal.png", "DONATE", 'mate']
   ];
 
   options(index) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () => Navigator.pushNamed(context, item[index][3]),
       child: Container(
         height: 200,
         width: 200,
@@ -49,7 +35,7 @@ class _ChoiceState extends State<Choice> {
               color: Colors.black.withOpacity(0.2),
               spreadRadius: 2,
               blurRadius: 5,
-              offset: Offset(4, 8),
+              offset: const Offset(4, 8),
             ),
           ],
         ),
