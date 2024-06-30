@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
-import '../../../main_component.dart';
+import '../../../../main_component.dart';
 
 class PetProfilePhoto extends StatefulWidget {
   const PetProfilePhoto({super.key});
@@ -78,6 +78,7 @@ class _PetProfilePhotoState extends State<PetProfilePhoto> {
       height: size.height / 2,
       child: GridView.builder(
         itemCount: _selected.length,
+        physics: const NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: 20,

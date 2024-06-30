@@ -62,75 +62,73 @@ class _MatchesState extends State<Matches> {
       );
     }
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: background,
-          surfaceTintColor: background,
-          actions: [
-            IconButton(
-              onPressed: () => Navigator.pushNamed(context, 'edit'),
-              icon: const Icon(Icons.filter_list),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: background,
+        surfaceTintColor: background,
+        actions: [
+          IconButton(
+            onPressed: () => Navigator.pushNamed(context, 'edit'),
+            icon: const Icon(Icons.filter_list),
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 10),
+            stories(),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 15, right: 15, top: 10, bottom: 100),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          heading(name, Colors.grey.shade900, 32),
+                          Text(
+                            "Active today",
+                            style: GoogleFonts.quicksand(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: green),
+                          ),
+                        ],
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.more_horiz),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  ImageCard(url: "assets/pictures/wallpaperflare.jpg"),
+                  const SizedBox(height: 20),
+                  const TextCard(top: "I go crazy for", bottom: "Meat"),
+                  const SizedBox(height: 20),
+                  ImageCard(url: "assets/pictures/1324832.png"),
+                  const SizedBox(height: 20),
+                  ImageCard(url: "assets/pictures/8733690.jpg"),
+                  const SizedBox(height: 20),
+                  const TextCard(top: "Unusual skills", bottom: "Football"),
+                  const SizedBox(height: 20),
+                  ImageCard(url: "assets/pictures/20200304_020853.jpg"),
+                  const SizedBox(height: 20),
+                  const TextCard(top: "My greatest strength", bottom: "Anime"),
+                ],
+              ),
             ),
           ],
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 10),
-              stories(),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 15, right: 15, top: 10, bottom: 100),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            heading(name),
-                            Text(
-                              "Active today",
-                              style: GoogleFonts.quicksand(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  color: green),
-                            ),
-                          ],
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.more_horiz),
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    ImageCard(url: "assets/pictures/wallpaperflare.jpg"),
-                    const SizedBox(height: 20),
-                    // const TextCard(top: "I go crazy for", bottom: "Meat"),
-                    // const SizedBox(height: 20),
-                    ImageCard(url: "assets/pictures/1324832.png"),
-                    const SizedBox(height: 20),
-                    ImageCard(url: "assets/pictures/8733690.jpg"),
-                    const SizedBox(height: 20),
-                    // const TextCard(top: "I go crazy for", bottom: "Meat"),
-                    // const SizedBox(height: 20),
-                    ImageCard(url: "assets/pictures/20200304_020853.jpg"),
-                    // const SizedBox(height: 20),
-                    // const TextCard(top: "I go crazy for", bottom: "Meat"),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: green,
-          child: const Icon(Icons.close, color: white),
-        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: green,
+        child: const Icon(Icons.close, color: white),
       ),
     );
   }

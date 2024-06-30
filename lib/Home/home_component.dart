@@ -14,19 +14,19 @@ UrlLauncher(String url) async {
   }
 }
 
-heading(String text) {
+heading(String text, Color color, double size) {
   return Text(
     text,
     style: GoogleFonts.manrope(
-        fontSize: 32, fontWeight: FontWeight.bold, color: Colors.grey.shade900),
+        fontSize: size, fontWeight: FontWeight.bold, color: color),
   );
 }
 
-subheading(String text) {
+subheading(String text, Color color, double size) {
   return Text(
     text,
     style: GoogleFonts.quicksand(
-        fontSize: 18, color: Colors.grey, fontWeight: FontWeight.bold),
+        fontSize: size, color: color, fontWeight: FontWeight.bold),
   );
 }
 
@@ -145,8 +145,9 @@ class _TextCardState extends State<TextCard> {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              title(widget.top),
+              subheading(widget.top, background, 14),
               content(widget.bottom),
             ],
           ),
@@ -179,17 +180,9 @@ like(bool active) {
   );
 }
 
-title(String text) {
-  return Text(
-    text,
-    style:
-        GoogleFonts.quicksand(fontWeight: FontWeight.bold, color: background),
-  );
-}
-
 content(String text) {
   return Text(
-    "Meat",
+    text,
     style: GoogleFonts.merriweather(
         fontWeight: FontWeight.bold, fontSize: 40, color: background),
   );

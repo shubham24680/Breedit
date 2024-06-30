@@ -26,41 +26,42 @@ class _HomeState extends State<Home> {
       const Profile(),
     ];
 
-    return AnnotatedRegion(
-      value: SystemUiOverlayStyle(statusBarColor: black),
-      child: SafeArea(
-        child: Scaffold(
-          body: pages[selectedIndex],
-          bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: green,
-            type: BottomNavigationBarType.fixed,
-            currentIndex: selectedIndex,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            onTap: (value) {
-              setState(() {
-                selectedIndex = value;
-              });
-            },
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset("assets/icons/home.svg",
-                    color: selectedIndex == 0 ? Colors.white : Colors.grey),
-                label: "Home",
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset("assets/icons/chat.svg",
-                    color: selectedIndex == 1 ? Colors.white : Colors.grey),
-                label: "Matches",
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset("assets/icons/profile.svg",
-                    color: selectedIndex == 2 ? Colors.white : Colors.grey),
-                label: "Profile",
-              ),
-            ],
+    return Scaffold(
+      body: pages[selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: green,
+        type: BottomNavigationBarType.fixed,
+        currentIndex: selectedIndex,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        onTap: (value) {
+          setState(() {
+            selectedIndex = value;
+          });
+        },
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset("assets/icons/home.svg",
+                colorFilter: ColorFilter.mode(
+                    selectedIndex == 0 ? Colors.white : Colors.grey,
+                    BlendMode.srcIn)),
+            label: "Home",
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset("assets/icons/chat.svg",
+                colorFilter: ColorFilter.mode(
+                    selectedIndex == 1 ? Colors.white : Colors.grey,
+                    BlendMode.srcIn)),
+            label: "Matches",
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset("assets/icons/profile.svg",
+                colorFilter: ColorFilter.mode(
+                    selectedIndex == 2 ? Colors.white : Colors.grey,
+                    BlendMode.srcIn)),
+            label: "Profile",
+          ),
+        ],
       ),
     );
   }

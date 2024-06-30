@@ -25,7 +25,13 @@ class _EditProfileState extends State<EditProfile> {
   final List<String?> _selected = List<String?>.generate(4, (index) => null);
   List<String> variable = ["Name", "Date of birth", "Gender"];
   List<String> value = List<String>.generate(3, (index) => "");
-  List<String> petVariable = ["Pet type", "Name", "Date of birth", "Gender", "Breed"];
+  List<String> petVariable = [
+    "Pet type",
+    "Name",
+    "Date of birth",
+    "Gender",
+    "Breed"
+  ];
   List<String> petValue = List<String>.generate(5, (index) => "");
 
   @override
@@ -128,7 +134,7 @@ class _EditProfileState extends State<EditProfile> {
             children: [
               const SizedBox(height: 20),
 
-              subheading("Pet photos"),
+              subheading("Pet photos", grey, 18),
               const SizedBox(height: 10),
 
               // PHOTO SELECTION
@@ -182,10 +188,10 @@ class _EditProfileState extends State<EditProfile> {
               const SizedBox(height: 20),
 
               // My vitals
-              subheading("My vitals"),
+              subheading("My vitals", grey, 18),
               const SizedBox(height: 10),
               SizedBox(
-                height: 65.0*variable.length,
+                height: 65.0 * variable.length,
                 child: ListView.builder(
                   itemCount: variable.length,
                   physics: const NeverScrollableScrollPhysics(),
@@ -243,10 +249,10 @@ class _EditProfileState extends State<EditProfile> {
               const SizedBox(height: 20),
 
               // Pet vitals
-              subheading("Pet vitals"),
+              subheading("Pet vitals", grey, 18),
               const SizedBox(height: 10),
               SizedBox(
-                height: 65.0*petVariable.length,
+                height: 65.0 * petVariable.length,
                 child: ListView.builder(
                   itemCount: petVariable.length,
                   physics: const NeverScrollableScrollPhysics(),

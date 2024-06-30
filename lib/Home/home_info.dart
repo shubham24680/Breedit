@@ -32,8 +32,10 @@ class _HomeInfoState extends State<HomeInfo> {
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 20),
-                      child:
-                          heading("All done! Let's see who catches your eye."),
+                      child: heading(
+                          "All done! Let's see who catches your eye.",
+                          Colors.grey.shade900,
+                          32),
                     ),
                     Image.asset("assets/pictures/home.jpg"),
                   ],

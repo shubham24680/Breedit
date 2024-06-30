@@ -62,14 +62,10 @@ class _OTPScreenState extends State<OTPScreen> {
 
   Future<bool> hasImagesInPetDocument(String uid) async {
     try {
-      final ref = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(uid)
-          .collection('pet')
-          .doc(uid)
-          .get();
+      final ref =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
 
-      return ref.exists && ref.data()!.containsKey('images');
+      return ref.exists;
     } catch (e) {
       print("Error retrieving pet document: $e");
       return false;

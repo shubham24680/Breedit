@@ -15,7 +15,8 @@ import 'Information/User/User_Information.dart';
 import 'Home/home_info.dart';
 import 'Home/home.dart';
 import 'Home/Choices/Mate/matches.dart';
-import 'Home/Choices/Mate/edit.dart';
+import 'Home/Choices/Mate/filter/edit.dart';
+import 'Home/Choices/Mate/filter/answer.dart';
 // import 'Home/Profile/profile_edit.dart';
 
 Map<String, WidgetBuilder> routes = {
@@ -38,5 +39,6 @@ Map<String, WidgetBuilder> routes = {
   'home': (context) => const Home(),
   'mate': (context) => const Matches(),
   'edit': (context) => const EditAndView(),
+  'answer': (context) => const Answer(),
   // 'editProfile': (context) => const EditProfile(),
 };

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +7,8 @@ import 'package:breedit/firebase_options.dart';
 
 import 'theme.dart';
 import 'route.dart';
+import 'main_component.dart';
+
 import 'OnboardingScreen/onboarding_screen.dart';
 import 'Home/home.dart';
 import 'Information/User/user_info.dart';
@@ -23,6 +26,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: black,
+        systemNavigationBarColor: green,
+      ),
+    );
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: theme(),

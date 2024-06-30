@@ -1,11 +1,11 @@
-import 'package:breedit/Home/Choices/Mate/pet_profile_photo.dart';
+import 'package:breedit/Home/Choices/Mate/filter/pet_profile_photo.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:breedit/main_component.dart';
-import '../../home_component.dart';
+import '../../../home_component.dart';
 
-import '/Home/Choices/Mate/view.dart';
+import 'view.dart';
 
 class EditAndView extends StatefulWidget {
   const EditAndView({super.key});
@@ -33,19 +33,17 @@ class _EditAndViewState extends State<EditAndView> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: background,
-          title: Text(
-            name,
-            style: GoogleFonts.manrope(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey.shade900),
+          backgroundColor: black,
+          leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back, color: white),
           ),
+          title: heading(name, white, 20),
           bottom: TabBar(
             indicatorColor: black,
-            dividerColor: Colors.black12,
-            labelColor: Colors.grey.shade900,
-            unselectedLabelColor: Colors.grey,
+            dividerColor: black,
+            labelColor: white,
+            unselectedLabelColor: grey,
             overlayColor: WidgetStateProperty.resolveWith<Color?>(
               (Set<WidgetState> states) {
                 if (states.contains(WidgetState.hovered)) {
@@ -99,10 +97,43 @@ class Edits extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
-            subheading("Pet Photos"),
-            // const SizedBox(height: 10),
+
+            // PET PHOTOS
+            heading("Pet Photos", black, 18),
+            const SizedBox(height: 5),
             const PetProfilePhoto(),
-            // subheading("Written Prompts"),
+            const SizedBox(height: 20),
+
+            // WRITTEN PROMPTS
+            heading("Written Prompts", black, 18),
+            SizedBox(
+              height: 270,
+              child: ListView.builder(
+                  itemCount: 3,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) => GestureDetector(
+                        onTap: () => Navigator.pushNamed(context, 'answer'),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: const EdgeInsets.symmetric(vertical: 5),
+                          padding: const EdgeInsets.all(15),
+                          decoration: BoxDecoration(
+                            color: background,
+                            border: Border.all(color: black.withOpacity(0.3)),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              heading("I go crazy for", black, 16),
+                              const SizedBox(height: 5),
+                              heading("Meat", grey, 14),
+                            ],
+                          ),
+                        ),
+                      )),
+            ),
+            const SizedBox(height: 20),
           ],
         ),
       ),

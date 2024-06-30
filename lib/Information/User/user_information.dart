@@ -108,14 +108,24 @@ class _UserInformationState extends State<UserInformation> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: black,
+          surfaceTintColor: black,
+          centerTitle: true,
+          title: Text(
+            "User Profile",
+            style: GoogleFonts.merriweather(
+                color: white, fontSize: 32, fontWeight: FontWeight.w900),
+          ),
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(height: 20),
                 // PROFILE PHOTO
-                const SizedBox(height: 80),
                 Align(
                   alignment: Alignment.center,
                   child: GestureDetector(
@@ -133,18 +143,12 @@ class _UserInformationState extends State<UserInformation> {
                     ),
                   ),
                 ),
-
-                // NAME
                 const SizedBox(height: 80),
 
-                // IMAGE
+                // NAME
                 image("assets/icons/id-card.png"),
-                const SizedBox(height: 20),
-
-                // HEADING
                 heading("What's your name?"),
-                const SizedBox(height: 40),
-
+                const SizedBox(height: 20),
                 // FIRST NAME
                 CTextField(
                   controller: firstName,
@@ -154,44 +158,31 @@ class _UserInformationState extends State<UserInformation> {
                       name = value.isNotEmpty;
                     });
                   },
-                  autofocus: true,
                 ),
-                const SizedBox(height: 40),
-
+                const SizedBox(height: 20),
                 // LAST NAME
                 CTextField(
                   controller: lastName,
                   hintText: "Last Name",
                 ),
+                const SizedBox(height: 80),
 
                 // DOB
-                const SizedBox(height: 80),
-                // IMAGE
                 image("assets/icons/birthday.png"),
-                const SizedBox(height: 20),
-
-                // HEADING
                 heading("What's your date of birth?"),
-                const SizedBox(height: 40),
-
-                // DATE OF BIRTH
+                const SizedBox(height: 20),
                 CTextField(
                   controller: dob,
                   hintText: "Date of birth",
                   onTap: () => showDate(),
                   readOnly: true,
                 ),
+                const SizedBox(height: 80),
 
                 // GENDER
-                const SizedBox(height: 80),
-                // IMAGE
                 image("assets/icons/gender.png"),
-                const SizedBox(height: 20),
-
-                // HEADING
                 heading("Which gender best describes you?"),
-                const SizedBox(height: 40),
-
+                const SizedBox(height: 20),
                 // GENDER SELECTION
                 SizedBox(
                   height: 200,

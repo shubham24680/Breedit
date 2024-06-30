@@ -78,7 +78,7 @@ class _ProfileState extends State<Profile> {
             children: [
               Container(
                 margin: const EdgeInsets.only(bottom: 72),
-                height: MediaQuery.of(context).size.height / 8,
+                height: MediaQuery.of(context).size.height / 6,
                 color: black,
               ),
               GestureDetector(
@@ -100,7 +100,7 @@ class _ProfileState extends State<Profile> {
 
           // NAME
           const SizedBox(height: 10),
-          heading(name),
+          heading(name, Colors.grey.shade900, 32),
 
           // PHONE NUMBER
           // const SizedBox(height: 5),
