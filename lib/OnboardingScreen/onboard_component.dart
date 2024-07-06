@@ -41,6 +41,7 @@ class CElevatedButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () => Navigator.pushNamed(context, route),
       style: ElevatedButton.styleFrom(
+          foregroundColor: white,
           backgroundColor: backgroundColor,
           shadowColor: Colors.transparent,
           minimumSize: const Size.fromHeight(50),

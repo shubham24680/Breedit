@@ -91,8 +91,8 @@ class Choice extends StatefulWidget {
 class _ChoiceState extends State<Choice> {
   final List<List<String>> item = [
     ["assets/pictures/krista.jpg", "assets/icons/pawprint.png", "MATE", 'mate'],
-    ["assets/pictures/eric.jpg", "assets/icons/adoption.png", "ADOPT", 'mate'],
-    ["assets/pictures/jamie.jpg", "assets/icons/animal.png", "DONATE", 'mate']
+    ["assets/pictures/eric.jpg", "assets/icons/adoption.png", "ADOPT", 'adopt'],
+    ["assets/pictures/jamie.jpg", "assets/icons/animal.png", "DONATE", 'adopt']
   ];
 
   Widget options(int index) {

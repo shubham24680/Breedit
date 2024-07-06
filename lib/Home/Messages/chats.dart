@@ -345,14 +345,7 @@ class _ChatsState extends State<Chats> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Messages",
-                  style: GoogleFonts.manrope(
-                    color: black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
+                heading("Messages", black, 20),
                 const SizedBox(height: 5),
                 mate(),
               ],

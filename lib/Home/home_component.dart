@@ -136,22 +136,7 @@ class _TextCardState extends State<TextCard> {
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
-        Container(
-          width: size.width,
-          alignment: Alignment.centerLeft,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-          decoration: BoxDecoration(
-            color: black,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              subheading(widget.top, background, 14),
-              content(widget.bottom),
-            ],
-          ),
-        ),
+        card(size, widget.top, widget.bottom),
         Padding(
           padding: const EdgeInsets.all(10),
           child: GestureDetector(
@@ -166,6 +151,25 @@ class _TextCardState extends State<TextCard> {
       ],
     );
   }
+}
+
+card(Size size, String top, String bottom) {
+  return Container(
+    width: size.width,
+    alignment: Alignment.centerLeft,
+    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+    decoration: BoxDecoration(
+      color: black,
+      borderRadius: BorderRadius.circular(10),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        subheading(top, background, 14),
+        content(bottom),
+      ],
+    ),
+  );
 }
 
 like(bool active) {
@@ -185,5 +189,36 @@ content(String text) {
     text,
     style: GoogleFonts.merriweather(
         fontWeight: FontWeight.bold, fontSize: 40, color: background),
+  );
+}
+
+stories(Size size) {
+  return SizedBox(
+    height: 36,
+    width: size.width,
+    child: ListView.builder(
+      itemCount: 10,
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (context, index) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: filter(),
+      ),
+    ),
+  );
+}
+
+filter() {
+  return ElevatedButton(
+    onPressed: () {},
+    style: ElevatedButton.styleFrom(
+      elevation: 0,
+      backgroundColor: background,
+      foregroundColor: black,
+      side: BorderSide(color: black),
+    ),
+    child: Text(
+      "Age",
+      style: GoogleFonts.quicksand(color: black, fontWeight: FontWeight.bold),
+    ),
   );
 }

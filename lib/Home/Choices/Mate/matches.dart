@@ -27,40 +27,9 @@ class _MatchesState extends State<Matches> {
     }
   }
 
-  filter() {
-    return ElevatedButton(
-      onPressed: () {},
-      style: ElevatedButton.styleFrom(
-        elevation: 0,
-        backgroundColor: background,
-        foregroundColor: black,
-        side: BorderSide(color: black),
-      ),
-      child: Text(
-        "Age",
-        style: GoogleFonts.quicksand(color: black, fontWeight: FontWeight.bold),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
-    stories() {
-      return SizedBox(
-        height: 36,
-        width: size.width,
-        child: ListView.builder(
-          itemCount: 10,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) => Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: filter(),
-          ),
-        ),
-      );
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -77,7 +46,7 @@ class _MatchesState extends State<Matches> {
         child: Column(
           children: [
             const SizedBox(height: 10),
-            stories(),
+            stories(size),
             Padding(
               padding: const EdgeInsets.only(
                   left: 15, right: 15, top: 10, bottom: 100),

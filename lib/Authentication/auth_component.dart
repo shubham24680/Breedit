@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '/main_component.dart';
-import 'create_account.dart';
+import 'Phone Number/phone_number.dart';
 
 image(String path) => Image.asset(path, width: 40);
 
@@ -34,8 +34,13 @@ class CTextField extends StatelessWidget {
     this.autofocus,
     this.suffixIcon,
     this.onChanged,
+    this.obscureText,
+    required this.hintText,
+    this.keyboardType,
+    this.fontSize,
   });
 
+  final String hintText;
   final VoidCallback? onTap;
   final TextEditingController controller;
   final Function(String)? onChanged;
@@ -43,6 +48,9 @@ class CTextField extends StatelessWidget {
   final TextAlign? textAlign;
   final bool? autofocus;
   final Widget? suffixIcon;
+  final bool? obscureText;
+  final TextInputType? keyboardType;
+  final double? fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -53,14 +61,18 @@ class CTextField extends StatelessWidget {
       readOnly: readOnly ?? false,
       textAlign: textAlign ?? TextAlign.start,
       autofocus: autofocus ?? false,
+      obscureText: obscureText ?? false,
       cursorColor: black,
-      cursorHeight: 40,
-      keyboardType: TextInputType.phone,
+      cursorHeight: fontSize != null ? (fontSize! + 10) : 30,
+      keyboardType: keyboardType ?? TextInputType.text,
       style: GoogleFonts.nunito(
-        fontSize: 30,
+        fontSize: fontSize ?? 20,
         fontWeight: FontWeight.bold,
       ),
       decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle:
+            GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.bold),
         suffixIcon: suffixIcon,
         suffixIconColor: black,
         suffixIconConstraints: const BoxConstraints(maxWidth: 20),
@@ -98,6 +110,37 @@ class BottomText extends StatelessWidget {
   }
 }
 
+class CElevatedButton extends StatelessWidget {
+  const CElevatedButton({
+    super.key,
+    required this.text,
+    required this.backgroundColor,
+    required this.route,
+  });
+
+  final String text;
+  final Color backgroundColor;
+  final String route;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () => Navigator.pushNamed(context, route),
+      style: ElevatedButton.styleFrom(
+          backgroundColor: backgroundColor,
+          shadowColor: Colors.transparent,
+          minimumSize: const Size.fromHeight(50),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25),
+          )),
+      child: Text(
+        text,
+        style: GoogleFonts.quicksand(fontWeight: FontWeight.bold, color: white),
+      ),
+    );
+  }
+}
+
 authElevatedButton(context, route) {
   return ElevatedButton(
     onPressed: route,
@@ -116,7 +159,7 @@ Future sendCode(String countryCode, String phoneNumber) async {
         verificationCompleted: (PhoneAuthCredential credential) {},
         verificationFailed: (FirebaseAuthException e) {},
         codeSent: (String verificationId, int? forceResendingToken) {
-          CreateAccount.verify = verificationId;
+          PhoneNumber.verify = verificationId;
         },
         timeout: const Duration(seconds: 90),
         codeAutoRetrievalTimeout: (String verificationId) {});

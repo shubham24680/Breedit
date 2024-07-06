@@ -24,12 +24,13 @@ class OnboardingScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              const Spacer(),
               SvgPicture.asset(
                 'assets/pictures/green.svg',
                 width: 230,
                 colorFilter: const ColorFilter.mode(white, BlendMode.srcIn),
               ),
-              SizedBox(height: size.height / 3),
+              const Spacer(flex: 2),
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
@@ -53,15 +54,21 @@ class OnboardingScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               const CElevatedButton(
+                text: "Sign in with phone number",
+                backgroundColor: green,
+                route: 'phoneNumber',
+              ),
+              const SizedBox(height: 10),
+              const CElevatedButton(
                 text: "Create account",
                 backgroundColor: green,
-                route: 'createAccount',
+                route: 'signUp',
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               const CElevatedButton(
                 text: "Sign in",
                 backgroundColor: Colors.transparent,
-                route: 'createAccount',
+                route: 'login',
               ),
             ],
           ),
