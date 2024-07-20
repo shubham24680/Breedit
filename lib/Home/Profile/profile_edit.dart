@@ -39,10 +39,10 @@ class _EditProfileState extends State<EditProfile> {
     super.initState();
     if (mounted) {
       setState(() {
-        name = data['first name'] + " " + data['last name'];
+        name = userData['first name'] + " " + userData['last name'];
         value[0] = name;
-        value[1] = data['dob'];
-        value[2] = data['gender'];
+        value[1] = userData['dob'];
+        value[2] = userData['gender'];
         // petValue[0] = petData['pet'];
         // petValue[1] = petData['name'];
         // petValue[2] = petData['dob'];
@@ -75,14 +75,14 @@ class _EditProfileState extends State<EditProfile> {
 
       final imagePath = File(image.path);
       await _uploadImages(imagePath);
-      await getData();
+      await getUserData();
       if (mounted) {
         setState(() {
-          name = data['first name'] + " " + data['last name'];
-          var url = List.from(petData['images']);
-          for (int i = 0; i < url.length; i++) {
-            _selected[i] = url[i];
-          }
+          name = userData['first name'] + " " + userData['last name'];
+          // var url = List.from(petData['images']);
+          // for (int i = 0; i < url.length; i++) {
+          //   _selected[i] = url[i];
+          // }
         });
       }
     } on PlatformException catch (e) {

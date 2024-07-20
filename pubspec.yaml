@@ -49,6 +49,7 @@ dependencies:
   dotted_border: ^2.1.0
   permission_handler: ^11.3.0
   firebase_storage: ^11.6.10
+  device_info_plus: ^10.1.0
   
 flutter_native_splash:
   image: assets/pictures/green_logo.png

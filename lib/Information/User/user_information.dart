@@ -25,6 +25,7 @@ class _UserInformationState extends State<UserInformation> {
   File? _selected;
   bool name = false;
   bool birth = false;
+  bool isDone = true;
   int select = 0;
 
   List<String> gender = ["Male", "Female", "Non-binary"];
@@ -73,7 +74,7 @@ class _UserInformationState extends State<UserInformation> {
         firebase_storage.UploadTask uploadTask = ref.putFile(_selected!);
         firebase_storage.TaskSnapshot taskSnapshot = await uploadTask;
         String dowloadUrl = await taskSnapshot.ref.getDownloadURL();
-        update('images', dowloadUrl);
+        update({'images': dowloadUrl});
         print("Successful");
       }
     } catch (e) {
@@ -86,13 +87,11 @@ class _UserInformationState extends State<UserInformation> {
             context: context,
             builder: (context, child) => Theme(
                   data: Theme.of(context).copyWith(
-                      colorScheme: const ColorScheme.light(
-                    primary: green,
-                  )),
+                      colorScheme: const ColorScheme.light(primary: green)),
                   child: child!,
                 ),
             initialDate: DateTime.now(),
-            firstDate: DateTime(2000),
+            firstDate: DateTime(1970),
             lastDate: DateTime.now())
         .then((value) {
       dob.text = value != null
@@ -109,14 +108,7 @@ class _UserInformationState extends State<UserInformation> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: black,
-          surfaceTintColor: black,
-          centerTitle: true,
-          title: Text(
-            "User Profile",
-            style: GoogleFonts.merriweather(
-                color: white, fontSize: 32, fontWeight: FontWeight.w900),
-          ),
+          title: const Text("User Profile"),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -143,10 +135,11 @@ class _UserInformationState extends State<UserInformation> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 80),
+                const SizedBox(height: 40),
 
                 // NAME
                 image("assets/icons/id-card.png"),
+                const SizedBox(height: 10),
                 heading("What's your name?"),
                 const SizedBox(height: 20),
                 // FIRST NAME
@@ -159,16 +152,17 @@ class _UserInformationState extends State<UserInformation> {
                     });
                   },
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 // LAST NAME
                 CTextField(
                   controller: lastName,
                   hintText: "Last Name",
                 ),
-                const SizedBox(height: 80),
+                const SizedBox(height: 40),
 
                 // DOB
                 image("assets/icons/birthday.png"),
+                const SizedBox(height: 10),
                 heading("What's your date of birth?"),
                 const SizedBox(height: 20),
                 CTextField(
@@ -177,10 +171,11 @@ class _UserInformationState extends State<UserInformation> {
                   onTap: () => showDate(),
                   readOnly: true,
                 ),
-                const SizedBox(height: 80),
+                const SizedBox(height: 40),
 
                 // GENDER
                 image("assets/icons/gender.png"),
+                const SizedBox(height: 10),
                 heading("Which gender best describes you?"),
                 const SizedBox(height: 20),
                 // GENDER SELECTION
@@ -223,30 +218,39 @@ class _UserInformationState extends State<UserInformation> {
                             ],
                           ),
                         ),
-                        const Divider(color: Colors.grey),
+                        Divider(color: grey),
                       ],
                     ),
                   ),
                 ),
 
                 // NAVIGATION BUTTON
-                const SizedBox(height: 80),
-                Container(
+                const SizedBox(height: 40),
+                Align(
                   alignment: Alignment.centerRight,
-                  child: authElevatedButton(
-                    context,
-                    name && birth && _selected != null
-                        ? () {
-                            create(firstName.text, lastName.text, dob.text,
-                                gender[select]);
-                            _uploadImages();
-                            Timer(const Duration(seconds: 10), () {
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, 'home', (route) => false);
-                            });
-                          }
-                        : null,
-                  ),
+                  child: isDone
+                      ? authElevatedButton(
+                          context,
+                          name && birth && _selected != null
+                              ? () {
+                                  setState(() {
+                                    isDone = false;
+                                  });
+                                  create({
+                                    'first name': firstName.text,
+                                    'last name': lastName.text,
+                                    'date of birth': dob.text,
+                                    'gender': gender[select],
+                                  });
+                                  _uploadImages();
+                                  Timer(const Duration(seconds: 5), () {
+                                    Navigator.pushNamedAndRemoveUntil(
+                                        context, 'home', (route) => false);
+                                  });
+                                }
+                              : null,
+                        )
+                      : const CircularProgressIndicator(color: green),
                 )
               ],
             ),

@@ -1,17 +1,20 @@
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-const status = Permission.storage;
-Future<void> requestPermission() async {
-  await status.request();
-  // Navigator.of(context).pop();
-}
-
 Future<bool> checkPermission() async {
-  if (await status.isDenied) {
-    await status.request();
-  } else if (await status.isPermanentlyDenied) {
+  final plugin = DeviceInfoPlugin();
+  final android = await plugin.androidInfo;
+  final storageStatus = android.version.sdkInt < 30
+      ? await Permission.storage.request()
+      : await Permission.manageExternalStorage.request();
+  if (storageStatus == PermissionStatus.granted) {
+    return true;
+  }
+  if (storageStatus == PermissionStatus.denied) {
+    storageStatus;
+  }
+  if (storageStatus == PermissionStatus.permanentlyDenied) {
     openAppSettings();
   }
-
-  return status.isGranted;
+  return storageStatus.isGranted;
 }

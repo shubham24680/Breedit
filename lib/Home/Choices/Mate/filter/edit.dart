@@ -22,7 +22,7 @@ class _EditAndViewState extends State<EditAndView> {
     super.initState();
     if (mounted) {
       setState(() {
-        name = data['first name'] + " " + data['last name'];
+        name = userData['first name'] + " " + userData['last name'];
       });
     }
   }

@@ -47,7 +47,7 @@ class _ProfileState extends State<Profile> {
         firebase_storage.TaskSnapshot taskSnapshot = await uploadTask;
         String dowloadUrl = await taskSnapshot.ref.getDownloadURL();
         update('images', dowloadUrl);
-        getData();
+        getUserData();
         print("Successful");
       }
     } catch (e) {
@@ -58,11 +58,11 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      await getData();
+      await getUserData();
       if (mounted) {
         setState(() {
-          name = data['first name'] + " " + data['last name'];
-          image = data['images'];
+          name = userData['first name'] + " " + userData['last name'];
+          image = userData['images'];
         });
       }
     });
@@ -78,7 +78,7 @@ class _ProfileState extends State<Profile> {
             children: [
               Container(
                 margin: const EdgeInsets.only(bottom: 72),
-                height: MediaQuery.of(context).size.height / 6,
+                height: MediaQuery.of(context).size.height * 0.15,
                 color: black,
               ),
               GestureDetector(
@@ -100,14 +100,14 @@ class _ProfileState extends State<Profile> {
 
           // NAME
           const SizedBox(height: 10),
-          heading(name, Colors.grey.shade900, 32),
+          heading(name, Colors.grey.shade900, 28),
 
           // PHONE NUMBER
           // const SizedBox(height: 5),
           // subheading(user!.phoneNumber ?? ""),
 
           // OPTIONS
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
           TabBar(
             indicatorColor: black,
             dividerColor: background,
@@ -127,7 +127,7 @@ class _ProfileState extends State<Profile> {
                 child: Text(
                   "PRIME",
                   style: GoogleFonts.manrope(
-                    fontSize: 22,
+                    fontSize: 20,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -138,7 +138,7 @@ class _ProfileState extends State<Profile> {
                 child: Text(
                   "EDIT",
                   style: GoogleFonts.manrope(
-                    fontSize: 22,
+                    fontSize: 20,
                     fontWeight: FontWeight.w600,
                   ),
                 ),

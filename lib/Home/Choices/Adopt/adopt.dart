@@ -79,7 +79,7 @@ class _AdoptState extends State<Adopt> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 10),
-            stories(size),
+            const Stories(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               child: Column(

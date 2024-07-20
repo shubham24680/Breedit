@@ -28,8 +28,8 @@ class _OTPScreenState extends State<OTPScreen> {
     return PinTheme(
       height: 56,
       width: 56,
-      textStyle: GoogleFonts.nunito(
-          color: black, fontWeight: FontWeight.bold, fontSize: 24),
+      textStyle: GoogleFonts.manrope(
+          color: black, fontWeight: FontWeight.bold, fontSize: 28),
       decoration: BoxDecoration(
         color: green.withOpacity(opacity),
         borderRadius: BorderRadius.circular(8),
@@ -44,8 +44,8 @@ class _OTPScreenState extends State<OTPScreen> {
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithCredential(credential);
       String uid = userCredential.user!.uid;
-      bool hasImage = await hasImagesInPetDocument(uid);
-      navigateToScreen(hasImage);
+      bool userExist = await hasImagesInPetDocument(uid);
+      navigateToScreen(userExist);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-verification-code') {
         print('Invalid OTP entered');
@@ -64,7 +64,6 @@ class _OTPScreenState extends State<OTPScreen> {
     try {
       final ref =
           await FirebaseFirestore.instance.collection('users').doc(uid).get();
-
       return ref.exists;
     } catch (e) {
       print("Error retrieving pet document: $e");
@@ -72,8 +71,8 @@ class _OTPScreenState extends State<OTPScreen> {
     }
   }
 
-  void navigateToScreen(bool hasImage) {
-    if (hasImage) {
+  void navigateToScreen(bool userExist) {
+    if (userExist) {
       Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
     } else {
       Navigator.pushNamedAndRemoveUntil(context, 'userInfo', (route) => false);
@@ -95,7 +94,7 @@ class _OTPScreenState extends State<OTPScreen> {
                 children: [
                   // IMAGE
                   image("assets/icons/shield.png"),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
 
                   // HEADING
                   heading("Enter your verification code"),
@@ -109,11 +108,11 @@ class _OTPScreenState extends State<OTPScreen> {
                       const SizedBox(width: 10),
                       BottomText(
                           onTap: () => Navigator.pushNamedAndRemoveUntil(
-                              context, 'createAccount', (route) => false),
+                              context, 'phoneNumber', (route) => false),
                           text: "Edit"),
                     ],
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 20),
 
                   // OTP INPUT AREA
                   Pinput(
@@ -149,17 +148,13 @@ class _OTPScreenState extends State<OTPScreen> {
                           }
                         : null,
                     text: "Didn't get a code?",
-                    color: onPressedValue ? null : Colors.grey.shade400,
+                    color: onPressedValue ? null : grey,
                   ),
 
                   // NAVIGATON BUTTON
                   authElevatedButton(
                     context,
-                    active
-                        ? () {
-                            getVerified();
-                          }
-                        : null,
+                    active ? () => getVerified() : null,
                   ),
                 ],
               )

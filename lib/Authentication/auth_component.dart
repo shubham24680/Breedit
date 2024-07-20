@@ -1,8 +1,9 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '/main_component.dart';
 import 'Phone Number/phone_number.dart';
@@ -13,14 +14,7 @@ heading(String text) {
   return Text(
     text,
     style: GoogleFonts.merriweather(
-        color: black, fontSize: 32, fontWeight: FontWeight.w900),
-  );
-}
-
-subheading(String text) {
-  return Text(
-    text,
-    style: GoogleFonts.quicksand(color: grey, fontWeight: FontWeight.bold),
+        color: black, fontSize: 28, fontWeight: FontWeight.w900),
   );
 }
 
@@ -35,22 +29,18 @@ class CTextField extends StatelessWidget {
     this.suffixIcon,
     this.onChanged,
     this.obscureText,
-    required this.hintText,
-    this.keyboardType,
-    this.fontSize,
+    this.hintText,
   });
 
-  final String hintText;
-  final VoidCallback? onTap;
   final TextEditingController controller;
+  final VoidCallback? onTap;
   final Function(String)? onChanged;
   final bool? readOnly;
   final TextAlign? textAlign;
   final bool? autofocus;
   final Widget? suffixIcon;
+  final String? hintText;
   final bool? obscureText;
-  final TextInputType? keyboardType;
-  final double? fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -63,16 +53,19 @@ class CTextField extends StatelessWidget {
       autofocus: autofocus ?? false,
       obscureText: obscureText ?? false,
       cursorColor: black,
-      cursorHeight: fontSize != null ? (fontSize! + 10) : 30,
-      keyboardType: keyboardType ?? TextInputType.text,
-      style: GoogleFonts.nunito(
-        fontSize: fontSize ?? 20,
+      cursorHeight: 43,
+      keyboardType: TextInputType.phone,
+      style: GoogleFonts.manrope(
+        fontSize: 28,
         fontWeight: FontWeight.bold,
       ),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle:
-            GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.bold),
+        hintStyle: GoogleFonts.manrope(
+          fontSize: 28,
+          fontStyle: FontStyle.italic,
+          fontWeight: FontWeight.bold,
+        ),
         suffixIcon: suffixIcon,
         suffixIconColor: black,
         suffixIconConstraints: const BoxConstraints(maxWidth: 20),
@@ -85,6 +78,20 @@ class CTextField extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+subheading(String text) {
+  return Text(
+    text,
+    style: GoogleFonts.quicksand(color: grey, fontWeight: FontWeight.bold),
+  );
+}
+
+launchURL(String url) async {
+  Uri uri = Uri.parse(url);
+  if (!await launchUrl(uri)) {
+    throw Exception("Could not launch $uri");
   }
 }
 
@@ -110,47 +117,48 @@ class BottomText extends StatelessWidget {
   }
 }
 
-class CElevatedButton extends StatelessWidget {
-  const CElevatedButton({
-    super.key,
-    required this.text,
-    required this.backgroundColor,
-    required this.route,
-  });
-
-  final String text;
-  final Color backgroundColor;
-  final String route;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () => Navigator.pushNamed(context, route),
-      style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor,
-          shadowColor: Colors.transparent,
-          minimumSize: const Size.fromHeight(50),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25),
-          )),
-      child: Text(
-        text,
-        style: GoogleFonts.quicksand(fontWeight: FontWeight.bold, color: white),
-      ),
-    );
-  }
-}
-
 authElevatedButton(context, route) {
   return ElevatedButton(
     onPressed: route,
     style: ElevatedButton.styleFrom(
+      foregroundColor: white,
       backgroundColor: green,
       shadowColor: Colors.transparent,
     ),
     child: const Icon(Icons.arrow_forward_ios_rounded, color: white),
   );
 }
+
+// class CElevatedButton extends StatelessWidget {
+//   const CElevatedButton({
+//     super.key,
+//     required this.text,
+//     required this.backgroundColor,
+//     required this.route,
+//   });
+
+//   final String text;
+//   final Color backgroundColor;
+//   final String route;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return ElevatedButton(
+//       onPressed: () => Navigator.pushNamed(context, route),
+//       style: ElevatedButton.styleFrom(
+//           backgroundColor: backgroundColor,
+//           shadowColor: Colors.transparent,
+//           minimumSize: const Size.fromHeight(50),
+//           shape: RoundedRectangleBorder(
+//             borderRadius: BorderRadius.circular(25),
+//           )),
+//       child: Text(
+//         text,
+//         style: GoogleFonts.quicksand(fontWeight: FontWeight.bold, color: white),
+//       ),
+//     );
+//   }
+// }
 
 Future sendCode(String countryCode, String phoneNumber) async {
   try {

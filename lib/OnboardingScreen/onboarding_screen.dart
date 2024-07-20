@@ -10,11 +10,10 @@ class OnboardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         body: Container(
-          padding: const EdgeInsets.only(left: 25, right: 25, bottom: 20),
+          padding: const EdgeInsets.only(left: 25, right: 25, bottom: 10),
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/pictures/dog.jpg"),
@@ -54,22 +53,24 @@ class OnboardingScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               const CElevatedButton(
-                text: "Sign in with phone number",
+                text: "Continue with phone number",
                 backgroundColor: green,
                 route: 'phoneNumber',
               ),
-              const SizedBox(height: 10),
-              const CElevatedButton(
-                text: "Create account",
-                backgroundColor: green,
-                route: 'signUp',
-              ),
-              const SizedBox(height: 10),
-              const CElevatedButton(
-                text: "Sign in",
-                backgroundColor: Colors.transparent,
-                route: 'login',
-              ),
+              // const SizedBox(height: 10),
+              // const CElevatedButton(
+              //   text: "Create account",
+              //   backgroundColor: green,
+              //   // route: 'phoneNumber',
+              //   route: 'signUp',
+              // ),
+              // const SizedBox(height: 10),
+              // const CElevatedButton(
+              //   text: "Sign in",
+              //   backgroundColor: Colors.transparent,
+              //   // route: 'phoneNumber',
+              //   route: 'login',
+              // ),
             ],
           ),
         ),

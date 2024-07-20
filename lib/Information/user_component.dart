@@ -11,7 +11,7 @@ heading(String text) {
   return Text(
     text,
     style: GoogleFonts.merriweather(
-        color: black, fontSize: 32, fontWeight: FontWeight.w900),
+        color: black, fontSize: 28, fontWeight: FontWeight.w900),
   );
 }
 
@@ -27,43 +27,45 @@ class CTextField extends StatelessWidget {
   const CTextField({
     super.key,
     required this.controller,
-    this.onTap,
-    this.autofocus,
     required this.hintText,
-    this.onChanged,
+    this.onTap,
     this.readOnly,
+    this.autofocus,
+    this.suffixIcon,
+    this.onChanged,
+    this.obscureText,
   });
 
-  final TextEditingController controller;
-  final void Function()? onTap;
-  final void Function(String)? onChanged;
-  final bool? autofocus;
-  final bool? readOnly;
   final String hintText;
+  final VoidCallback? onTap;
+  final TextEditingController controller;
+  final Function(String)? onChanged;
+  final bool? readOnly;
+  final bool? autofocus;
+  final Widget? suffixIcon;
+  final bool? obscureText;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller,
       onTap: onTap,
+      controller: controller,
       onChanged: onChanged,
-      autofocus: autofocus ?? false,
       readOnly: readOnly ?? false,
+      autofocus: autofocus ?? false,
       cursorColor: black,
-      cursorHeight: 40,
-      style: GoogleFonts.nunito(
-        fontSize: 30,
+      cursorHeight: 43,
+      style: GoogleFonts.manrope(
+        fontSize: 28,
         fontWeight: FontWeight.bold,
       ),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: GoogleFonts.nunito(
-          fontSize: 30,
-          color: grey,
+        hintStyle: GoogleFonts.manrope(
+          fontSize: 24,
           fontStyle: FontStyle.italic,
           fontWeight: FontWeight.bold,
         ),
-        suffixIconConstraints: const BoxConstraints(maxWidth: 20),
         contentPadding: const EdgeInsets.only(bottom: 0),
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: black),
@@ -80,6 +82,7 @@ authElevatedButton(context, route) {
   return ElevatedButton(
     onPressed: route,
     style: ElevatedButton.styleFrom(
+      foregroundColor: white,
       backgroundColor: green,
       shadowColor: Colors.transparent,
     ),
@@ -87,45 +90,22 @@ authElevatedButton(context, route) {
   );
 }
 
-longButton(context, String newRouteName, String text) {
-  return ElevatedButton(
-    onPressed: () => Navigator.pushNamedAndRemoveUntil(
-        context, newRouteName, (route) => false),
-    style: ElevatedButton.styleFrom(
-        backgroundColor: green,
-        shadowColor: Colors.transparent,
-        minimumSize: const Size.fromHeight(60),
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)))),
-    child: Text(
-      text,
-      style: GoogleFonts.quicksand(fontWeight: FontWeight.bold, color: white),
-    ),
-  );
-}
-
 final CollectionReference ref = FirebaseFirestore.instance.collection('users');
 final FirebaseAuth auth = FirebaseAuth.instance;
 final user = auth.currentUser;
 
-Future<void> create(
-    String firstName, String lastName, String dob, String gender) async {
+Future<void> create(Map<String, dynamic> data) async {
   try {
-    await ref.doc(user!.uid).set({
-      'first name': firstName,
-      'last name': lastName,
-      'date of birth': dob,
-      'gender': gender,
-    });
+    await ref.doc(user!.uid).set(data);
     print('User data added/updated successfully!');
   } catch (e) {
     print('Error adding/updating user data: $e');
   }
 }
 
-Future<void> update(String x, String y) async {
+Future<void> update(Map<String, dynamic> data) async {
   try {
-    await ref.doc(user!.uid).update({x: y});
+    await ref.doc(user!.uid).update(data);
     print('User data added/updated successfully!');
   } catch (e) {
     print('Error adding/updating user data: $e');

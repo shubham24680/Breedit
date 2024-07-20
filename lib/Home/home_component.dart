@@ -1,11 +1,85 @@
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../main_component.dart';
+
+// ignore: prefer_typing_uninitialized_variables
+var userData, mateData;
+User? user = FirebaseAuth.instance.currentUser;
+CollectionReference userRef = FirebaseFirestore.instance.collection('users');
+CollectionReference mateRef = FirebaseFirestore.instance.collection('mates');
+Future<void> getUserData() async {
+  DocumentReference document = userRef.doc(user!.uid);
+  DocumentSnapshot snapshot = await document.get();
+  userData = snapshot.data() as Map<String, dynamic>;
+}
+
+Future<void> getMateData() async {
+  DocumentReference document = mateRef.doc(user!.uid);
+  DocumentSnapshot snapshot = await document.get();
+  mateData = snapshot.data() as Map<String, dynamic>;
+}
+
+class Stories extends StatefulWidget {
+  const Stories({super.key});
+
+  @override
+  State<Stories> createState() => _StoriesState();
+}
+
+class _StoriesState extends State<Stories> {
+  List<List<dynamic>> storyStatus = [
+    ["Age", false],
+    ["Height", false],
+    ["Breed", false],
+    ["Male", false],
+    ["Female", false],
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
+    return SizedBox(
+      height: 36,
+      width: size.width,
+      child: ListView.builder(
+        itemCount: storyStatus.length,
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  storyStatus[index][1] = !storyStatus[index][1];
+                });
+              },
+              style: ElevatedButton.styleFrom(
+                elevation: 0,
+                foregroundColor: black,
+                backgroundColor: storyStatus[index][1] ? black : background,
+                side: BorderSide(color: black),
+              ),
+              child: subheading("${storyStatus[index][0]}",
+                  storyStatus[index][1] ? background : black, 14)),
+        ),
+      ),
+    );
+  }
+}
+
+subheading(String text, Color color, double size) {
+  return Text(
+    text,
+    style: GoogleFonts.quicksand(
+        fontSize: size, color: color, fontWeight: FontWeight.bold),
+  );
+}
 
 UrlLauncher(String url) async {
   Uri uri = Uri.parse(url);
@@ -22,14 +96,6 @@ heading(String text, Color color, double size) {
   );
 }
 
-subheading(String text, Color color, double size) {
-  return Text(
-    text,
-    style: GoogleFonts.quicksand(
-        fontSize: size, color: color, fontWeight: FontWeight.bold),
-  );
-}
-
 offer(String text) {
   return Text(
     text,
@@ -37,22 +103,9 @@ offer(String text) {
   );
 }
 
-// ignore: prefer_typing_uninitialized_variables
-var data, petData;
-User? user = FirebaseAuth.instance.currentUser;
-CollectionReference ref = FirebaseFirestore.instance.collection('users');
-Future<void> getData() async {
-  DocumentReference document = ref.doc(user!.uid);
-  DocumentSnapshot snapshot = await document.get();
-  // DocumentSnapshot petSnapshot =
-  //     await document.collection('pet').doc(user!.uid).get();
-  data = snapshot.data() as Map<String, dynamic>;
-  // petData = petSnapshot.data() as Map<String, dynamic>;
-}
-
 Future<void> update(String x, String y) async {
   try {
-    await ref.doc(user!.uid).update({x: y});
+    await userRef.doc(user!.uid).update({x: y});
     print('User data added/updated successfully!');
   } catch (e) {
     print('Error adding/updating user data: $e');
@@ -192,33 +245,10 @@ content(String text) {
   );
 }
 
-stories(Size size) {
-  return SizedBox(
-    height: 36,
-    width: size.width,
-    child: ListView.builder(
-      itemCount: 10,
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (context, index) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: filter(),
-      ),
-    ),
-  );
-}
-
-filter() {
-  return ElevatedButton(
-    onPressed: () {},
-    style: ElevatedButton.styleFrom(
-      elevation: 0,
-      backgroundColor: background,
-      foregroundColor: black,
-      side: BorderSide(color: black),
-    ),
-    child: Text(
-      "Age",
-      style: GoogleFonts.quicksand(color: black, fontWeight: FontWeight.bold),
-    ),
+questions(String text) {
+  return Text(
+    text,
+    style: GoogleFonts.merriweather(
+        color: black, fontSize: 24, fontWeight: FontWeight.w900),
   );
 }

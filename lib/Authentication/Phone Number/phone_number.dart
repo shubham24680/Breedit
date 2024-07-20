@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:country_picker/country_picker.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../main_component.dart';
 import '../auth_component.dart';
@@ -65,14 +64,6 @@ class _PhoneNumberState extends State<PhoneNumber> {
     );
   }
 
-  _launchURL() async {
-    Uri uri = Uri.parse(
-        'https://hingeapp.zendesk.com/hc/en-us/articles/360034066073-How-do-I-change-my-phone-number');
-    if (!await launchUrl(uri)) {
-      throw Exception("Could not launch $uri");
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -88,11 +79,11 @@ class _PhoneNumberState extends State<PhoneNumber> {
                 children: [
                   // IMAGE
                   image("assets/icons/phone.png"),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
 
                   // HEADING
                   heading("What's your phone number?"),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 20),
                   Row(
                     children: [
                       // COUNTRY CODE
@@ -102,8 +93,6 @@ class _PhoneNumberState extends State<PhoneNumber> {
                           controller: countryCode,
                           readOnly: true,
                           textAlign: TextAlign.end,
-                          hintText: "",
-                          fontSize: 30,
                           suffixIcon:
                               const Icon(Icons.keyboard_arrow_down_rounded),
                         ),
@@ -121,12 +110,11 @@ class _PhoneNumberState extends State<PhoneNumber> {
                           },
                           controller: phoneNumber,
                           hintText: "Phone number",
-                          keyboardType: TextInputType.phone,
-                          fontSize: 30,
                         ),
                       ),
                     ],
                   ),
+                  const SizedBox(height: 5),
 
                   // SUB HEADING
                   subheading(
@@ -139,7 +127,8 @@ class _PhoneNumberState extends State<PhoneNumber> {
                 children: [
                   // BOTTOM URL
                   BottomText(
-                      onTap: () => _launchURL(),
+                      onTap: () => launchURL(
+                          'https://hingeapp.zendesk.com/hc/en-us/articles/360034066073-How-do-I-change-my-phone-number'),
                       text: "What if my number changes?"),
 
                   // NAVIGATION BUTTON

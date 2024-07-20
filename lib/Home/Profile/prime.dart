@@ -13,7 +13,7 @@ class Prime extends StatelessWidget {
       itemCount: 2,
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) => Container(
-        width: MediaQuery.of(context).size.width / 1.3,
+        width: MediaQuery.of(context).size.width * 0.8,
         margin: const EdgeInsets.all(20),
         padding: const EdgeInsets.all(30),
         alignment: Alignment.center,
@@ -75,6 +75,7 @@ class Prime extends StatelessWidget {
               onPressed: () {},
               style: ElevatedButton.styleFrom(
                   backgroundColor: green,
+                  foregroundColor: white,
                   shadowColor: Colors.transparent,
                   minimumSize: const Size.fromHeight(50),
                   shape: RoundedRectangleBorder(

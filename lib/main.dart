@@ -58,20 +58,20 @@ class _SecurityState extends State<Security> {
     return StreamBuilder(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          String uid = snapshot.data!.uid;
-          final ref = FirebaseFirestore.instance.collection('users').doc(uid);
-          return FutureBuilder(
-            future: ref.get(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData && snapshot.data!.exists) {
-                return const Home();
-              }
-              return const Information();
-            },
-          );
+        if (!snapshot.hasData) {
+          return const OnboardingScreen();
         }
-        return const OnboardingScreen();
+        String uid = snapshot.data!.uid;
+        final ref = FirebaseFirestore.instance.collection('users').doc(uid);
+        return FutureBuilder(
+          future: ref.get(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData || !snapshot.data!.exists) {
+              return const Information();
+            }
+            return const Home();
+          },
+        );
       },
     );
   }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '/main_component.dart';
@@ -43,22 +42,19 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
             icon: SvgPicture.asset("assets/icons/home.svg",
                 colorFilter: ColorFilter.mode(
-                    selectedIndex == 0 ? Colors.white : Colors.grey,
-                    BlendMode.srcIn)),
+                    selectedIndex == 0 ? white : grey, BlendMode.srcIn)),
             label: "Home",
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset("assets/icons/chat.svg",
                 colorFilter: ColorFilter.mode(
-                    selectedIndex == 1 ? Colors.white : Colors.grey,
-                    BlendMode.srcIn)),
-            label: "Matches",
+                    selectedIndex == 1 ? white : grey, BlendMode.srcIn)),
+            label: "Chats",
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset("assets/icons/profile.svg",
                 colorFilter: ColorFilter.mode(
-                    selectedIndex == 2 ? Colors.white : Colors.grey,
-                    BlendMode.srcIn)),
+                    selectedIndex == 2 ? white : grey, BlendMode.srcIn)),
             label: "Profile",
           ),
         ],
