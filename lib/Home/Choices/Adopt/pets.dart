@@ -68,11 +68,11 @@ class Pets extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       heading("German Shepherd", black, 24),
-                      subheading("1.2 Km Away", grey, 16),
+                      h2("1.2 Km Away", grey, 16),
                       const SizedBox(height: 20),
                       heading("About", black, 18),
                       const SizedBox(height: 10),
-                      subheading(
+                      h2(
                           "The German Shepherd, also known in Britain as an Alsatian, "
                           "is a German breed of working dog of medium to large size. The breed was developed"
                           " by Max von Stephanitz using various traditional German herding dogs from 1899. "
@@ -86,7 +86,7 @@ class Pets extends StatelessWidget {
                       button(black, const Icon(Icons.message)),
                       const SizedBox(width: 20),
                       Expanded(
-                        child: button(green, subheading("Adopt me", white, 16)),
+                        child: button(green, h2("Adopt me", white, 16)),
                       ),
                     ],
                   ),

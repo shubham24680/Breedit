@@ -39,10 +39,10 @@ class _EditProfileState extends State<EditProfile> {
     super.initState();
     if (mounted) {
       setState(() {
-        name = userData['first name'] + " " + userData['last name'];
+        name = data['first name'] + " " + data['last name'];
         value[0] = name;
-        value[1] = userData['dob'];
-        value[2] = userData['gender'];
+        value[1] = data['dob'];
+        value[2] = data['gender'];
         // petValue[0] = petData['pet'];
         // petValue[1] = petData['name'];
         // petValue[2] = petData['dob'];
@@ -75,10 +75,10 @@ class _EditProfileState extends State<EditProfile> {
 
       final imagePath = File(image.path);
       await _uploadImages(imagePath);
-      await getUserData();
+      await getData('users');
       if (mounted) {
         setState(() {
-          name = userData['first name'] + " " + userData['last name'];
+          name = data['first name'] + " " + data['last name'];
           // var url = List.from(petData['images']);
           // for (int i = 0; i < url.length; i++) {
           //   _selected[i] = url[i];
@@ -134,7 +134,7 @@ class _EditProfileState extends State<EditProfile> {
             children: [
               const SizedBox(height: 20),
 
-              subheading("Pet photos", grey, 18),
+              h2("Pet photos", grey, 18),
               const SizedBox(height: 10),
 
               // PHOTO SELECTION
@@ -188,7 +188,7 @@ class _EditProfileState extends State<EditProfile> {
               const SizedBox(height: 20),
 
               // My vitals
-              subheading("My vitals", grey, 18),
+              h2("My vitals", grey, 18),
               const SizedBox(height: 10),
               SizedBox(
                 height: 65.0 * variable.length,
@@ -249,7 +249,7 @@ class _EditProfileState extends State<EditProfile> {
               const SizedBox(height: 20),
 
               // Pet vitals
-              subheading("Pet vitals", grey, 18),
+              h2("Pet vitals", grey, 18),
               const SizedBox(height: 10),
               SizedBox(
                 height: 65.0 * petVariable.length,

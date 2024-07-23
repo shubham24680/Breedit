@@ -46,8 +46,7 @@ class _ProfileState extends State<Profile> {
         firebase_storage.UploadTask uploadTask = ref.putFile(imagePath!);
         firebase_storage.TaskSnapshot taskSnapshot = await uploadTask;
         String dowloadUrl = await taskSnapshot.ref.getDownloadURL();
-        update('images', dowloadUrl);
-        getUserData();
+        update('users', {'images': dowloadUrl});
         print("Successful");
       }
     } catch (e) {
@@ -58,11 +57,11 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      await getUserData();
+      await getData('users');
       if (mounted) {
         setState(() {
-          name = userData['first name'] + " " + userData['last name'];
-          image = userData['images'];
+          name = data['first name'] + " " + data['last name'];
+          image = data['images'];
         });
       }
     });

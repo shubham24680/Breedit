@@ -177,7 +177,7 @@ class _ChatsState extends State<Chats> {
     super.initState();
     if (mounted) {
       setState(() {
-        imagePath = userData['images'];
+        imagePath = data['images'];
       });
     }
   }

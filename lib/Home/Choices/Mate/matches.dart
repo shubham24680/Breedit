@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../main_component.dart';
 import '../../home_component.dart';
@@ -13,14 +13,31 @@ class Matches extends StatefulWidget {
 
 class _MatchesState extends State<Matches> {
   bool mateExists = false;
-  String name = "";
+  List<String?> images = List.generate(4, growable: false, (index) => null);
+  // String petName = "";
 
   @override
   void initState() {
     super.initState();
+    _refreshMate();
+  }
+
+  Future<void> _refreshMate() async {
+    await getData('mates');
     if (mounted) {
+      FirebaseFirestore.instance
+          .collection('mates')
+          .doc(user!.uid)
+          .get()
+          .then((data) {
+        setState(() {
+          mateExists = data.exists;
+        });
+      });
       setState(() {
-        name = userData['first name'] + " " + userData['last name'];
+        for (int i = 0; i < data['images'].length; i++) {
+          images[i] = data['images'][i];
+        }
       });
     }
   }
@@ -34,7 +51,18 @@ class _MatchesState extends State<Matches> {
         children: [
           Image.asset('assets/pictures/cute_dog.png'),
           ElevatedButton(
-            onPressed: () => Navigator.pushNamed(context, 'edit'),
+            onPressed: () {
+              FirebaseFirestore.instance
+                  .collection('mates')
+                  .doc(user!.uid)
+                  .get()
+                  .then((data) {
+                if (!data.exists) {
+                  create('mates', {'name': null, 'images': [], 'prompts': []});
+                }
+              });
+              Navigator.pushNamed(context, 'edit');
+            },
             style: ElevatedButton.styleFrom(
               foregroundColor: white,
               backgroundColor: green,
@@ -43,7 +71,7 @@ class _MatchesState extends State<Matches> {
                 borderRadius: BorderRadius.circular(15),
               ),
             ),
-            child: subheading("Edit pet profile", white, 16),
+            child: h2("Edit pet profile", white, 16),
           ),
         ],
       );
@@ -81,38 +109,40 @@ class _MatchesState extends State<Matches> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                heading(name, Colors.grey.shade900, 32),
-                                Text(
-                                  "Active today",
-                                  style: GoogleFonts.quicksand(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: green),
-                                ),
+                                // heading(petName, Colors.grey.shade900, 32),
+                                h2("Active today", green, 12),
                               ],
                             ),
                             IconButton(
                               onPressed: () {},
                               icon: const Icon(Icons.more_horiz),
-                            )
+                            ),
                           ],
                         ),
                         const SizedBox(height: 20),
-                        ImageCard(url: "assets/pictures/wallpaperflare.jpg"),
+                        images[0] != null
+                            ? ImageCard(url: images[0]!)
+                            : const SizedBox(),
                         const SizedBox(height: 20),
-                        const TextCard(top: "I go crazy for", bottom: "Meat"),
+                        // const TextCard(top: "I go crazy for", bottom: "Meat"),
+                        // const SizedBox(height: 20),
+                        images[1] != null
+                            ? ImageCard(url: images[1]!)
+                            : const SizedBox(),
                         const SizedBox(height: 20),
-                        ImageCard(url: "assets/pictures/1324832.png"),
+                        images[2] != null
+                            ? ImageCard(url: images[2]!)
+                            : const SizedBox(),
                         const SizedBox(height: 20),
-                        ImageCard(url: "assets/pictures/8733690.jpg"),
+                        // const TextCard(
+                        //     top: "Unusual skills", bottom: "Football"),
+                        // const SizedBox(height: 20),
+                        images[3] != null
+                            ? ImageCard(url: images[3]!)
+                            : const SizedBox(),
                         const SizedBox(height: 20),
-                        const TextCard(
-                            top: "Unusual skills", bottom: "Football"),
-                        const SizedBox(height: 20),
-                        ImageCard(url: "assets/pictures/20200304_020853.jpg"),
-                        const SizedBox(height: 20),
-                        const TextCard(
-                            top: "My greatest strength", bottom: "Anime"),
+                        // const TextCard(
+                        //     top: "My greatest strength", bottom: "Anime"),
                       ],
                     ),
                   ),

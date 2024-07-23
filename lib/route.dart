@@ -9,8 +9,9 @@ import 'Information/User/user_info.dart';
 import 'Information/User/User_Information.dart';
 import 'Home/home.dart';
 import 'Home/Choices/Mate/matches.dart';
-import 'Home/Choices/Mate/filter/edit.dart';
-import 'Home/Choices/Mate/filter/answer.dart';
+import 'Home/Choices/Mate/edit.dart';
+import 'Home/Choices/Mate/Edit/answer.dart';
+import 'Home/Choices/Mate/Edit/prompt.dart';
 import 'Home/Choices/Adopt/adopt.dart';
 import 'Home/Choices/Adopt/pets.dart';
 import 'Home/Choices/donate.dart';
@@ -27,6 +28,7 @@ Map<String, WidgetBuilder> routes = {
   'mate': (context) => const Matches(),
   'edit': (context) => const EditAndView(),
   'answer': (context) => const Answer(),
+  'prompts': (context) => Prompts(),
   'adopt': (context) => const Adopt(),
   'pets': (context) => const Pets(),
   'donate': (context) => const Donate(),

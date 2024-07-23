@@ -1,9 +1,8 @@
-import 'package:breedit/Home/Choices/Mate/filter/pet_profile_photo.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:breedit/main_component.dart';
-import '../../../home_component.dart';
+import '/main_component.dart';
+import '../../home_component.dart';
 
 import 'view.dart';
 
@@ -15,14 +14,21 @@ class EditAndView extends StatefulWidget {
 }
 
 class _EditAndViewState extends State<EditAndView> {
-  String name = "";
+  final List<String?> item = List.generate(4, growable: false, (index) => null);
 
   @override
   void initState() {
     super.initState();
+    refreshMate();
+  }
+
+  Future<void> refreshMate() async {
+    await getData('mates');
     if (mounted) {
       setState(() {
-        name = userData['first name'] + " " + userData['last name'];
+        for (int i = 0; i < data['images'].length; i++) {
+          item[i] = data['images'][i];
+        }
       });
     }
   }
@@ -33,12 +39,6 @@ class _EditAndViewState extends State<EditAndView> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: black,
-          leading: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: const Icon(Icons.arrow_back, color: white),
-          ),
-          title: heading(name, white, 20),
           bottom: TabBar(
             indicatorColor: black,
             dividerColor: black,
@@ -47,7 +47,7 @@ class _EditAndViewState extends State<EditAndView> {
             overlayColor: WidgetStateProperty.resolveWith<Color?>(
               (Set<WidgetState> states) {
                 if (states.contains(WidgetState.hovered)) {
-                  return green; //<-- SEE HERE
+                  return white;
                 }
                 return null;
               },
@@ -56,7 +56,7 @@ class _EditAndViewState extends State<EditAndView> {
               Tab(
                 child: Text(
                   'Edit',
-                  style: GoogleFonts.quicksand(
+                  style: GoogleFonts.manrope(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
@@ -65,7 +65,7 @@ class _EditAndViewState extends State<EditAndView> {
               Tab(
                 child: Text(
                   'View',
-                  style: GoogleFonts.quicksand(
+                  style: GoogleFonts.manrope(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
@@ -74,10 +74,10 @@ class _EditAndViewState extends State<EditAndView> {
             ],
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
-            Edits(),
-            Views(),
+            Edits(item: item),
+            Views(item: item),
           ],
         ),
       ),
@@ -86,13 +86,17 @@ class _EditAndViewState extends State<EditAndView> {
 }
 
 class Edits extends StatelessWidget {
-  const Edits({super.key});
+  const Edits({super.key, required this.item});
+
+  final List<String?> item;
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -100,8 +104,13 @@ class Edits extends StatelessWidget {
 
             // PET PHOTOS
             heading("Pet Photos", black, 18),
-            const SizedBox(height: 5),
-            const PetProfilePhoto(),
+            const SizedBox(height: 10),
+            PetProfilePhoto(
+              height: size.height / 2,
+              crossAxisCount: 2,
+              item: item,
+              collection: 'mates',
+            ),
             const SizedBox(height: 20),
 
             // WRITTEN PROMPTS
@@ -109,30 +118,35 @@ class Edits extends StatelessWidget {
             SizedBox(
               height: 270,
               child: ListView.builder(
-                  itemCount: 3,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) => GestureDetector(
-                        onTap: () => Navigator.pushNamed(context, 'answer'),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.symmetric(vertical: 5),
-                          padding: const EdgeInsets.all(15),
-                          decoration: BoxDecoration(
-                            color: background,
-                            border: Border.all(color: black.withOpacity(0.3)),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              heading("I go crazy for", black, 16),
-                              const SizedBox(height: 5),
-                              heading("Meat", grey, 14),
-                            ],
-                          ),
-                        ),
-                      )),
+                itemCount: 3,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) => GestureDetector(
+                  onTap: () => Navigator.pushNamed(context, 'answer'),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.symmetric(vertical: 5),
+                    padding: const EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                      color: background,
+                      border: Border.all(color: black.withOpacity(0.3)),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        heading("I go crazy for", black, 16),
+                        const SizedBox(height: 5),
+                        heading("Meat", grey, 14),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ),
+            const SizedBox(height: 20),
+
+            // PET VITALS
+            heading("Pet Vitals", black, 18),
             const SizedBox(height: 20),
           ],
         ),
