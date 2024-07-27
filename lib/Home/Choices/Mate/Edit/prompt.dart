@@ -19,7 +19,7 @@ class Prompts extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () => Navigator.pop(context, ""),
+          onPressed: () => Navigator.pop(context, null),
           icon: const Icon(Icons.arrow_back_outlined),
         ),
         title: const Text("Prompts"),

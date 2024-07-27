@@ -15,6 +15,11 @@ class EditAndView extends StatefulWidget {
 
 class _EditAndViewState extends State<EditAndView> {
   final List<String?> item = List.generate(4, growable: false, (index) => null);
+  final List<String?> prompt =
+      List.generate(3, growable: false, (index) => null);
+  final List<String?> answer =
+      List.generate(3, growable: false, (index) => null);
+  final List<String> vitals = ["Name"];
 
   @override
   void initState() {
@@ -28,6 +33,10 @@ class _EditAndViewState extends State<EditAndView> {
       setState(() {
         for (int i = 0; i < data['images'].length; i++) {
           item[i] = data['images'][i];
+        }
+        for (int i = 0; i < data['prompts'].length; i++) {
+          prompt[i] = data['prompts'][i];
+          answer[i] = data['answers'][i];
         }
       });
     }
@@ -76,8 +85,8 @@ class _EditAndViewState extends State<EditAndView> {
         ),
         body: TabBarView(
           children: [
-            Edits(item: item),
-            Views(item: item),
+            Edits(item: item, prompt: prompt, answer: answer),
+            Views(images: item, prompt: prompt, answer: answer),
           ],
         ),
       ),
@@ -86,9 +95,15 @@ class _EditAndViewState extends State<EditAndView> {
 }
 
 class Edits extends StatelessWidget {
-  const Edits({super.key, required this.item});
+  const Edits(
+      {super.key,
+      required this.item,
+      required this.prompt,
+      required this.answer});
 
   final List<String?> item;
+  final List<String?> prompt;
+  final List<String?> answer;
 
   @override
   Widget build(BuildContext context) {
@@ -96,12 +111,10 @@ class Edits extends StatelessWidget {
 
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 20),
-
             // PET PHOTOS
             heading("Pet Photos", black, 18),
             const SizedBox(height: 10),
@@ -115,39 +128,24 @@ class Edits extends StatelessWidget {
 
             // WRITTEN PROMPTS
             heading("Written Prompts", black, 18),
-            SizedBox(
+            PromptCard(
               height: 270,
-              child: ListView.builder(
-                itemCount: 3,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) => GestureDetector(
-                  onTap: () => Navigator.pushNamed(context, 'answer'),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.symmetric(vertical: 5),
-                    padding: const EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      color: background,
-                      border: Border.all(color: black.withOpacity(0.3)),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        heading("I go crazy for", black, 16),
-                        const SizedBox(height: 5),
-                        heading("Meat", grey, 14),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+              prompt: prompt,
+              answer: answer,
+              title: "Select a prompt",
+              subTitle: "And write your own answer",
             ),
-            const SizedBox(height: 20),
+            // const SizedBox(height: 20),
 
             // PET VITALS
-            heading("Pet Vitals", black, 18),
-            const SizedBox(height: 20),
+            // heading("Pet Vitals", black, 18),
+            // PromptCard(
+            //   height: 270,
+            //   prompt: prompt,
+            //   answer: answer,
+            //   title: "Select a prompt",
+            //   subTitle: "And write your own answer",
+            // ),
           ],
         ),
       ),

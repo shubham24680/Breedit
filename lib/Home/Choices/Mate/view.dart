@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import '../../home_component.dart';
 
 class Views extends StatelessWidget {
-  const Views({super.key, required this.item});
+  const Views({super.key, required this.images, required this.prompt, required this.answer});
 
-  final List<String?> item;
+  final List<String?> images;
+  final List<String?> prompt;
+  final List<String?> answer;
 
   @override
   Widget build(BuildContext context) {
@@ -16,21 +18,19 @@ class Views extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Column(
           children: [
-            item[0] != null ? image(size, item[0]!) : const SizedBox(),
-            const SizedBox(height: 20),
-            // card(size, "I go crazy for", "Meat"),
-            // const SizedBox(height: 20),
-            item[1] != null ? image(size, item[1]!) : const SizedBox(),
-            const SizedBox(height: 20),
-            item[2] != null ? image(size, item[2]!) : const SizedBox(),
-            const SizedBox(height: 20),
-            // image(size, "assets/pictures/8733690.jpg"),
-            // const SizedBox(height: 20),
-            // card(size, "Unusual skills", "Football"),
-            // const SizedBox(height: 20),
-            item[3] != null ? image(size, item[3]!) : const SizedBox(),
-            const SizedBox(height: 20),
-            // card(size, "My greatest strength", "Anime"),
+            images[0] != null ? image(size, images[0]!) : const SizedBox(),
+             SizedBox(height: images[0] != null ? 20 : 0),
+            prompt[0] != null ? card(size, prompt[0]!, answer[0]!) : const SizedBox(),
+             SizedBox(height: prompt[0]  != null ? 20 : 0),
+            images[1] != null ? image(size, images[1]!) : const SizedBox(),
+            SizedBox(height: images[1] != null ? 20 : 0),
+            images[2] != null ? image(size, images[2]!) : const SizedBox(),
+            SizedBox(height: images[2] != null ? 20 : 0),
+            prompt[1] != null ? card(size, prompt[1]!, answer[1]!) : const SizedBox(),
+             SizedBox(height: prompt[1]  != null ? 20 : 0),
+            images[3] != null ? image(size, images[3]!) : const SizedBox(),
+            SizedBox(height: images[3] != null ? 20 : 0),
+            prompt[2] != null ? card(size, prompt[2]!, answer[2]!) : const SizedBox(),
           ],
         ),
       ),

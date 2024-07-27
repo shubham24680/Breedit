@@ -14,6 +14,8 @@ class Matches extends StatefulWidget {
 class _MatchesState extends State<Matches> {
   bool mateExists = false;
   List<String?> images = List.generate(4, growable: false, (index) => null);
+  List<String?> prompts = List.generate(3, growable: false, (index) => null);
+  List<String?> answers = List.generate(3, growable: false, (index) => null);
   // String petName = "";
 
   @override
@@ -38,14 +40,16 @@ class _MatchesState extends State<Matches> {
         for (int i = 0; i < data['images'].length; i++) {
           images[i] = data['images'][i];
         }
+        for (int i = 0; i < data['prompts'].length; i++) {
+          prompts[i] = data['prompts'][i];
+          answers[i] = data['answers'][i];
+        }
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     noProfile() {
       return Column(
         children: [
@@ -100,7 +104,7 @@ class _MatchesState extends State<Matches> {
                   const Stories(),
                   Padding(
                     padding: const EdgeInsets.only(
-                        left: 10, right: 10, top: 10, bottom: 100),
+                        left: 10, right: 10, top: 10, bottom: 80),
                     child: Column(
                       children: [
                         Row(
@@ -120,29 +124,46 @@ class _MatchesState extends State<Matches> {
                           ],
                         ),
                         const SizedBox(height: 20),
+                        // Image 1
                         images[0] != null
                             ? ImageCard(url: images[0]!)
                             : const SizedBox(),
-                        const SizedBox(height: 20),
-                        // const TextCard(top: "I go crazy for", bottom: "Meat"),
-                        // const SizedBox(height: 20),
+                        SizedBox(height: images[0] != null ? 20 : 0),
+
+                        // Prompt 1
+                        prompts[0] != null
+                            ? TextCard(top: prompts[0]!, bottom: answers[0]!)
+                            : const SizedBox(),
+                        SizedBox(height: prompts[0] != null ? 20 : 0),
+
+                        // Image 2
                         images[1] != null
                             ? ImageCard(url: images[1]!)
                             : const SizedBox(),
-                        const SizedBox(height: 20),
+                        SizedBox(height: images[1] != null ? 20 : 0),
+
+                        // Image 3
                         images[2] != null
                             ? ImageCard(url: images[2]!)
                             : const SizedBox(),
-                        const SizedBox(height: 20),
-                        // const TextCard(
-                        //     top: "Unusual skills", bottom: "Football"),
-                        // const SizedBox(height: 20),
+                        SizedBox(height: images[2] != null ? 20 : 0),
+
+                        // Prompt 2
+                        prompts[1] != null
+                            ? TextCard(top: prompts[1]!, bottom: answers[1]!)
+                            : const SizedBox(),
+                        SizedBox(height: prompts[1] != null ? 20 : 0),
+
+                        // Image 4
                         images[3] != null
                             ? ImageCard(url: images[3]!)
                             : const SizedBox(),
-                        const SizedBox(height: 20),
-                        // const TextCard(
-                        //     top: "My greatest strength", bottom: "Anime"),
+                        SizedBox(height: images[3] != null ? 20 : 0),
+
+                        // Prompt 3
+                        prompts[2] != null
+                            ? TextCard(top: prompts[2]!, bottom: answers[2]!)
+                            : const SizedBox(),
                       ],
                     ),
                   ),

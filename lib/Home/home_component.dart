@@ -12,6 +12,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../main_component.dart';
 import '../permissions.dart';
+import 'Choices/Mate/Edit/answer.dart';
 
 // MARK: GET DATA
 // ignore: prefer_typing_uninitialized_variables
@@ -51,17 +52,17 @@ Future<void> update(String collection, Map<String, dynamic> data) async {
 }
 
 // MARK: HEADING
-heading(String text, Color color, double size) {
+heading(String? text, Color color, double size) {
   return Text(
-    text,
+    text ?? "",
     style: GoogleFonts.manrope(
         fontSize: size, fontWeight: FontWeight.bold, color: color),
   );
 }
 
-h2(String text, Color color, double size) {
+h2(String? text, Color color, double size) {
   return Text(
-    text,
+    text ?? "",
     style: GoogleFonts.quicksand(
         fontSize: size, color: color, fontWeight: FontWeight.bold),
   );
@@ -117,7 +118,7 @@ class _StoriesState extends State<Stories> {
   }
 }
 
-// MARK: IMAGES
+// MARK: IMAGES CARD
 image(Size size, String url) {
   return SizedBox(
     height: size.width,
@@ -125,9 +126,9 @@ image(Size size, String url) {
     child: ClipRRect(
       borderRadius: BorderRadius.circular(15),
       child: Image.network(
-              url,
-              fit: BoxFit.cover,
-            ),
+        url,
+        fit: BoxFit.cover,
+      ),
     ),
   );
 }
@@ -180,6 +181,15 @@ class _ImageCardState extends State<ImageCard> {
   }
 }
 
+// MARK: TEXT CARD
+content(String text) {
+  return Text(
+    text,
+    style: GoogleFonts.merriweather(
+        fontWeight: FontWeight.bold, fontSize: 40, color: background),
+  );
+}
+
 card(Size size, String top, String bottom) {
   return Container(
     width: size.width,
@@ -187,7 +197,7 @@ card(Size size, String top, String bottom) {
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
     decoration: BoxDecoration(
       color: black,
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(15),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -338,6 +348,75 @@ class _PetProfilePhotoState extends State<PetProfilePhoto> {
   }
 }
 
+// MARK: PROMPT CARD
+class PromptCard extends StatefulWidget {
+  const PromptCard(
+      {super.key,
+      required this.height,
+      required this.prompt,
+      required this.answer,
+      required this.title,
+      required this.subTitle});
+
+  final double height;
+  final List<String?> prompt;
+  final List<String?> answer;
+  final String title;
+  final String subTitle;
+
+  @override
+  State<PromptCard> createState() => _PromptCardState();
+}
+
+class _PromptCardState extends State<PromptCard> {
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
+    return SizedBox(
+      height: widget.height,
+      child: ListView.builder(
+        itemCount: widget.prompt.length,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) => GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Answer(
+                      prompt: widget.prompt[index], text: widget.answer[index]),
+                ));
+          },
+          child: Container(
+            width: size.width,
+            margin: const EdgeInsets.symmetric(vertical: 5),
+            padding: const EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              color: background,
+              border: Border.all(color: black.withOpacity(0.3)),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (widget.prompt[index] != null) ...[
+                  heading(widget.prompt[index], black, 16),
+                  const SizedBox(height: 5),
+                  h2(widget.answer[index], grey, 14),
+                ] else ...[
+                  heading(widget.title, black, 16),
+                  const SizedBox(height: 5),
+                  h2(widget.subTitle, grey, 14),
+                ],
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 UrlLauncher(String url) async {
   Uri uri = Uri.parse(url);
   if (!await launchUrl(uri)) {
@@ -349,14 +428,6 @@ offer(String text) {
   return Text(
     text,
     style: GoogleFonts.quicksand(color: black, fontWeight: FontWeight.bold),
-  );
-}
-
-content(String text) {
-  return Text(
-    text,
-    style: GoogleFonts.merriweather(
-        fontWeight: FontWeight.bold, fontSize: 40, color: background),
   );
 }
 
