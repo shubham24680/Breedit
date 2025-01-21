@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-// import '../features/view/OnboardingScreen/onboarding_screen.dart';
+import 'package:breedit/features/view/onboarding/onboarding_screen.dart';
 import 'package:breedit/features/view/authentication/phone/phone_number.dart';
 import 'package:breedit/features/view/authentication/phone/otp_screen.dart';
+import 'package:breedit/features/view/Information/information.dart';
 // import '../features/view/Home/home.dart';
 // import '../features/view/Home/Choices/Mate/matches.dart';
 // import '../features/view/Home/Choices/Mate/edit.dart';
@@ -12,13 +13,13 @@ import 'package:breedit/features/view/authentication/phone/otp_screen.dart';
 // import '../features/view/Home/Choices/donate.dart';
 
 Map<String, WidgetBuilder> routes = {
-//   'onboarding': (context) => const OnboardingScreen(),
+  '/onboarding': (context) => const OnboardingScreen(),
   '/phoneNumber': (context) => const PhoneNumber(),
   '/otp': (context) => const OTPScreen(),
+  '/info': (context) => const Information(),
 //   // 'signUp': (context) => const SignupScreen(),
 //   // 'login': (context) => const LoginScreen(),
 //   // 'forgetPassword': (context) => const ForgotPassword(),
-//   // 'userInfo': (context) => const Information(),
 //   // 'userInformation': (context) => const UserInformation(),
 //   'home': (context) => const Home(),
 //   'mate': (context) => const Matches(),

@@ -1,9 +1,10 @@
-import 'package:breedit/features/view/onboarding/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:breedit/services/auth_google.dart';
 import 'package:breedit/core/util/app_colors.dart';
+import 'package:breedit/features/view/onboarding/buttons.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -65,7 +66,7 @@ class OnboardingScreen extends StatelessWidget {
               const SizedBox(height: 5),
               button(
                 context,
-                () {},
+                () => GoogleService.signInWithGoogle(context),
                 white,
                 black,
                 "assets/icons/google.svg",

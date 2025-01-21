@@ -9,7 +9,7 @@ import 'package:breedit/services/firebase_options.dart';
 import 'package:breedit/core/util/app_colors.dart';
 import 'package:breedit/features/view_model/auth_provider.dart';
 
-import 'package:breedit/features/view/onboarding/onboarding_screen.dart';
+import 'package:breedit/features/view/authentication/authentication.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         title: 'Breedit',
         theme: light,
         routes: routes,
-        home: const OnboardingScreen(),
+        home: const Authentication(),
         debugShowCheckedModeBanner: false,
       ),
     );

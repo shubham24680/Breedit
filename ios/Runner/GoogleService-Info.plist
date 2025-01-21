@@ -2,18 +2,24 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>1033350640648-4jh35044cpl3gj5l8eljdn78ejcv3oti.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1033350640648-4jh35044cpl3gj5l8eljdn78ejcv3oti</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1033350640648-b9uhoanb8622vebr8hp90jept5qk6ik2.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyD5PG8EEK9JEMzJ_qBedu8E3tP0-8pRlmM</string>
+	<string>AIzaSyApB3mV9M_lN6MRP92Y_SGUFaQsIuwzvo4</string>
 	<key>GCM_SENDER_ID</key>
-	<string>417213841022</string>
+	<string>1033350640648</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.breedit</string>
 	<key>PROJECT_ID</key>
-	<string>breedit-36cb7</string>
+	<string>breedit-74eef</string>
 	<key>STORAGE_BUCKET</key>
-	<string>breedit-36cb7.appspot.com</string>
+	<string>breedit-74eef.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:417213841022:ios:6cc1f050a995545445622f</string>
+	<string>1:1033350640648:ios:3a98b7782d8dd4c8a5cdbd</string>
 </dict>
 </plist>

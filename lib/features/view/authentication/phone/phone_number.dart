@@ -1,7 +1,7 @@
-import 'package:breedit/services/auth_otp.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:breedit/services/auth_otp.dart';
 import 'package:breedit/core/util/app_colors.dart';
 import 'package:breedit/core/util/app_icon.dart';
 import 'package:breedit/core/widgets/text.dart';
@@ -59,7 +59,9 @@ class PhoneNumber extends StatelessWidget {
                   prov.validatePhoneNumber();
                   if (prov.phoneNumberRegex
                       .hasMatch(prov.phoneNumberController.text)) {
-                    AuthCode.sendCode(context, prov.countryCodeController.text,
+                    OtpService.sendCode(
+                        context,
+                        prov.countryCodeController.text,
                         prov.phoneNumberController.text);
                   }
                 },

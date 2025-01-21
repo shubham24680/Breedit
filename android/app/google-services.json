@@ -12,7 +12,20 @@
           "package_name": "com.example.breedit"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1033350640648-b9uhoanb8622vebr8hp90jept5qk6ik2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.breedit",
+            "certificate_hash": "9509e36e12fa9d9a31a5da75a1e9c142c9932ffa"
+          }
+        },
+        {
+          "client_id": "1033350640648-48tq95tabcdugk6rhp4k6svq56erihob.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCzu2ezFLR2DvffXsIqQqvU2F2U-k3mkgU"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1033350640648-48tq95tabcdugk6rhp4k6svq56erihob.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1033350640648-4jh35044cpl3gj5l8eljdn78ejcv3oti.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.breedit"
+              }
+            }
+          ]
         }
       }
     }

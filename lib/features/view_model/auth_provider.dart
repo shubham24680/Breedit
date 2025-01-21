@@ -3,12 +3,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class AuthProvider extends ChangeNotifier {
+  // Phone Number
   final RegExp _phoneNumberRegex = RegExp(r'^\d{10}$');
+  TextEditingController phoneNumberController = TextEditingController();
   TextEditingController countryCodeController =
       TextEditingController(text: "+91");
-  TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController otpController = TextEditingController();
   bool isError = false;
+
+  // Otp
+  TextEditingController otpController = TextEditingController();
   bool _resendCode = false;
   int _count = 30;
 

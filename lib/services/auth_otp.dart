@@ -1,11 +1,11 @@
 import 'dart:developer';
-import 'package:breedit/check.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
-class AuthCode {
-  static String verifyId = "";
-  static final FirebaseAuth auth = FirebaseAuth.instance;
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+class OtpService {
+  static String _verifyId = "";
+  static final FirebaseAuth _auth = FirebaseAuth.instance;
 
 // MARK: Send code
   static void sendCode(
@@ -19,7 +19,7 @@ class AuthCode {
     // verification completed
     void verificationCompleted(AuthCredential credential) async {
       try {
-        await auth.signInWithCredential(credential);
+        await _auth.signInWithCredential(credential);
         log("Verification Completed");
       } catch (e) {
         log("Error signing in with credential: $e");
@@ -38,7 +38,7 @@ class AuthCode {
 
     // verification code sent
     void codeSent(String verificationId, int? forceResendingToken) {
-      verifyId = verificationId;
+      _verifyId = verificationId;
       if (context.mounted) {
         Navigator.pushNamedAndRemoveUntil(context, "/otp", (_) => false);
       }
@@ -50,7 +50,7 @@ class AuthCode {
     }
 
     try {
-      await auth.verifyPhoneNumber(
+      await _auth.verifyPhoneNumber(
         phoneNumber: numberWithCountryCode,
         verificationCompleted: verificationCompleted,
         verificationFailed: verificationFailed,
@@ -65,20 +65,18 @@ class AuthCode {
     }
   }
 
-// MARK: Verify code
+// MARK: Verify
   static Future<void> verifyCode(
     BuildContext context,
     String smsCode,
   ) async {
     try {
       final PhoneAuthCredential credential = PhoneAuthProvider.credential(
-          verificationId: verifyId, smsCode: smsCode);
-      // UserCredential userCredential =
-      await auth.signInWithCredential(credential);
-      // String uid = userCredential.user!.uid;
-      // bool userExist = await hasImagesInPetDocument(uid);
+          verificationId: _verifyId, smsCode: smsCode);
+      await _auth.signInWithCredential(credential);
+      bool userExist = true;
       if (context.mounted) {
-        navigatorToScreen(context, true);
+        navigatorToScreen(context, userExist);
       }
       log("Phone number verified and user signed in");
     } catch (e) {
@@ -95,21 +93,9 @@ class AuthCode {
 
   static void navigatorToScreen(BuildContext context, bool userExist) {
     if (userExist) {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const Check(),
-          ),
-          (_) => false);
-      // Navigator.pushNamedAndRemoveUntil(context, "/information", (_) => false);
+      Navigator.pushNamedAndRemoveUntil(context, "/information", (_) => false);
     } else {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const Check(),
-          ),
-          (_) => false);
-      // Navigator.pushNamedAndRemoveUntil(context, "/information", (_) => false);
+      Navigator.pushNamedAndRemoveUntil(context, "/onboarding", (_) => false);
     }
   }
 }

@@ -89,7 +89,7 @@ class OTPScreen extends StatelessWidget {
                   CElevatedButton(
                     backgroundColor: green,
                     onPressed: () {
-                      AuthCode.verifyCode(context, prov.otpController.text);
+                      OtpService.verifyCode(context, prov.otpController.text);
                     },
                     child: Quicksand(
                       text: "Confirm",
