@@ -30,34 +30,29 @@ class _ResendCodeState extends State<ResendCode> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Pinput(
-          length: 6,
-          showCursor: false,
-          onChanged: (value) {
-            setState(() {
-              // code = value;
-              // active = value.length == 6;
-            });
-          },
-          defaultPinTheme: pinTheme(0.2),
-          focusedPinTheme: pinTheme(0.5),
-        ),
-        const SizedBox(height: 5),
-        Consumer<AuthProvider>(
-          builder: (_, value, __) {
-            return Align(
+    return Consumer<AuthProvider>(
+      builder: (_, value, __) {
+        return Column(
+          children: [
+            Pinput(
+              controller: value.otpController,
+              length: 6,
+              showCursor: false,
+              defaultPinTheme: pinTheme(0.2),
+              focusedPinTheme: pinTheme(0.5),
+            ),
+            const SizedBox(height: 5),
+            Align(
               alignment: Alignment.centerRight,
               child: Quicksand(
                 text: value.resendCode ? "Resend code: ${value.count}" : "",
                 color: green,
                 weight: FontWeight.bold,
               ),
-            );
-          },
-        )
-      ],
+            ),
+          ],
+        );
+      },
     );
   }
 }

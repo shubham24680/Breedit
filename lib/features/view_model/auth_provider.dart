@@ -7,6 +7,7 @@ class AuthProvider extends ChangeNotifier {
   TextEditingController countryCodeController =
       TextEditingController(text: "+91");
   TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController otpController = TextEditingController();
   bool isError = false;
   bool _resendCode = false;
   int _count = 30;

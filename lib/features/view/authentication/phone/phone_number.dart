@@ -1,3 +1,4 @@
+import 'package:breedit/services/auth_otp.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -58,7 +59,8 @@ class PhoneNumber extends StatelessWidget {
                   prov.validatePhoneNumber();
                   if (prov.phoneNumberRegex
                       .hasMatch(prov.phoneNumberController.text)) {
-                    Navigator.pushNamed(context, '/otp');
+                    AuthCode.sendCode(context, prov.countryCodeController.text,
+                        prov.phoneNumberController.text);
                   }
                 },
                 child: Quicksand(

@@ -1,4 +1,4 @@
-import 'dart:async';
+import 'package:breedit/services/auth_otp.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,53 +9,8 @@ import 'package:breedit/core/widgets/text.dart';
 import 'package:breedit/features/view/authentication/phone/resend_code.dart';
 import 'package:breedit/features/view_model/auth_provider.dart';
 
-import 'package:breedit/check.dart';
-
 class OTPScreen extends StatelessWidget {
   const OTPScreen({super.key});
-
-  Future<void> getVerified() async {
-    // try {
-    // PhoneAuthCredential credential = PhoneAuthProvider.credential(
-    //     verificationId: PhoneNumber.verify, smsCode: code);
-    // UserCredential userCredential =
-    //     await FirebaseAuth.instance.signInWithCredential(credential);
-    // String uid = userCredential.user!.uid;
-    // bool userExist = await hasImagesInPetDocument(uid);
-    // navigateToScreen(false);
-    // navigateToScreen(userExist);
-    // } on FirebaseAuthException catch (e) {
-    //   if (e.code == 'invalid-verification-code') {
-    //     print('Invalid OTP entered');
-    //     ScaffoldMessenger.of(context).showSnackBar(
-    //       const SnackBar(
-    //         content: Text('Invalid OTP. Please enter a valid OTP.'),
-    //       ),
-    //     );
-    //   } else {
-    //     print("Firebase Authentication Error: ${e.message}");
-    //   }
-    // }
-  }
-
-  // Future<bool> hasImagesInPetDocument(String uid) async {
-  //   try {
-  //     final ref =
-  //         await FirebaseFirestore.instance.collection('users').doc(uid).get();
-  //     return ref.exists;
-  //   } catch (e) {
-  //     print("Error retrieving pet document: $e");
-  //     return false;
-  //   }
-  // }
-
-  // void navigateToScreen(bool userExist) {
-  //   if (userExist) {
-  //     Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
-  //   } else {
-  //     Navigator.pushNamedAndRemoveUntil(context, 'userInfo', (route) => false);
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -134,12 +89,7 @@ class OTPScreen extends StatelessWidget {
                   CElevatedButton(
                     backgroundColor: green,
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Check(),
-                        ),
-                      );
+                      AuthCode.verifyCode(context, prov.otpController.text);
                     },
                     child: Quicksand(
                       text: "Confirm",
@@ -149,37 +99,6 @@ class OTPScreen extends StatelessWidget {
                   ),
                 ],
               )
-              // },
-              // )
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              // RESEND CODE
-              // BottomText(
-              //   onTap: onPressedValue
-              //       ? () {
-              //           setState(() {
-              //             onPressedValue = false;
-              //             // sendCode(widget.countryCode, widget.phoneNumber);
-              //           });
-              //           Timer(const Duration(seconds: 30), () {
-              //             setState(() {
-              //               onPressedValue = true;
-              //             });
-              //           });
-              //         }
-              //       : null,
-              //   text: "Didn't get a code?",
-              //   color: onPressedValue ? null : grey,
-              // ),
-
-              // NAVIGATON BUTTON
-              // authElevatedButton(
-              //   context,
-              //   active ? () => getVerified() : null,
-              // ),
-              //   ],
-              // )
             ],
           ),
         ),

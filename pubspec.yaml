@@ -51,6 +51,7 @@ dependencies:
   firebase_storage: ^11.6.10
   device_info_plus: ^10.1.0
   provider: ^6.1.2
+  google_sign_in: ^6.2.2
   
 flutter_native_splash:
   image: assets/pictures/green_logo.png
